@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "x": "curl -X POST -H \"Content-Type: application/json\" -d '{\"command\": \"htop\"}' http://localhost:2200/execute",
+    "x": "curl -X POST -H \"Content-Type: application/json\" -d '{\"command\": \"pyton \"}' http://localhost:2200/execute",
     "exe": "curl -X POST -H \"Content-Type: application/json\" -d '{\"command\": \"touch output/$(date +%s) && echo Hello, World!\"}' http://localhost:2200/execute"
   },
   "keywords": [],

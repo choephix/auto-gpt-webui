@@ -36,8 +36,21 @@ function App() {
     };
   }, []);
 
+  function execc() {
+    fetch('http://localhost:2200/execute', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ command: 'ls -la' })
+    })
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
   return (
     <div>
+      <button onClick={execc}>Execute</button>
       <h1>Console Output</h1>
       <pre>{output}</pre>
     </div>

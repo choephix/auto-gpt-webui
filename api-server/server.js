@@ -12,23 +12,20 @@ const PORT = process.env.PORT || 2200;
 const wss = new WebSocket.Server({ noServer: true });
 
 let activeCommand = null;
+let commandLog = '';
 
 wss.on('connection', ws => {
-  if (activeCommand) {
-    activeCommand.stdout.on('data', data => {
-      ws.send(data);
-    });
-
-    activeCommand.stderr.on('data', data => {
-      ws.send(data);
-    });
-
-    activeCommand.on('exit', code => {
-      ws.send(`\nProcess exited with code ${code}\n`);
-      ws.close();
-    });
-  }
+  ws.send(commandLog);
 });
+
+const updateClients = data => {
+  commandLog += data;
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
 
 app.use(express.json());
 
@@ -50,7 +47,20 @@ app.post('/execute', (req, res) => {
     activeCommand = null;
   });
 
+  activeCommand.stdout.on('data', updateClients);
+  activeCommand.stderr.on('data', updateClients);
+
   res.status(200).json({ message: 'Command received, processing...' });
+});
+
+app.all('/kill', (req, res) => {
+  if (!activeCommand) {
+    return res.status(400).json({ error: 'No command is currently running.' });
+  }
+
+  activeCommand.kill();
+  activeCommand = null;
+  res.status(200).json({ message: 'Active command killed.' });
 });
 
 const server = app.listen(PORT, () => {
