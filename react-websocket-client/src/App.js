@@ -1,53 +1,47 @@
-const express = require('express');
-const http = require('http');
-const { Server } = require('ws');
-const cors = require('cors');
-const { exec } = require('child_process');
+import React, { useState, useEffect } from 'react';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+function App() {
+  const [output, setOutput] = useState('');
+  let socket;
 
-const server = http.createServer(app);
-const wss = new Server({ server });
+  useEffect(() => {
+    const connectWebSocket = () => {
+      socket = new WebSocket('ws://localhost:2200');
 
-app.post('/execute', (req, res) => {
-  const command = req.body.command;
+      socket.onopen = () => {
+        console.log('WebSocket connected');
+      };
 
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      res.status(500).json({ error: error.message });
-      return;
-    }
+      socket.onmessage = event => {
+        console.log('WebSocket message received: ', event.data);
+        setOutput(prevOutput => prevOutput + event.data);
+      };
 
-    res.status(200).json({ stdout, stderr });
-  });
-});
+      socket.onclose = () => {
+        console.log('WebSocket closed');
+        setTimeout(() => {
+          connectWebSocket();
+        }, 1000);
+      };
 
-wss.on('connection', ws => {
-  console.log('WebSocket connection established');
+      socket.onerror = error => {
+        console.error('WebSocket error: ', error);
+      };
+    };
 
-  ws.on('close', () => {
-    console.log('WebSocket connection closed');
-  });
+    connectWebSocket();
 
-  const handleMessage = command => {
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        ws.send(`Error: ${error.message}\n`);
-        return;
-      }
+    return () => {
+      socket && socket.close();
+    };
+  }, []);
 
-      if (stdout) ws.send(stdout);
-      if (stderr) ws.send(stderr);
-    });
-  };
+  return (
+    <div>
+      <h1>Console Output</h1>
+      <pre>{output}</pre>
+    </div>
+  );
+}
 
-  ws.on('message', message => {
-    handleMessage(message);
-  });
-});
-
-server.listen(2200, () => {
-  console.log('Server listening on port 2200');
-});
+export default App;
