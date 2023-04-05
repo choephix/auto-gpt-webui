@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
+    "init": "git submodule init",
     "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "start": "turbo run start",
+    "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\""
   },
   "devDependencies": {
     "eslint-config-custom": "*",
