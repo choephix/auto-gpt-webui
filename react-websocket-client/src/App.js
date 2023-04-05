@@ -1,47 +1,53 @@
-import React, { useState, useEffect } from 'react';
+const express = require('express');
+const http = require('http');
+const { Server } = require('ws');
+const cors = require('cors');
+const { exec } = require('child_process');
 
-function App() {
-  const [output, setOutput] = useState('');
-  let socket;
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-  useEffect(() => {
-    const connectWebSocket = () => {
-      socket = new WebSocket('ws://localhost:2200');
+const server = http.createServer(app);
+const wss = new Server({ server });
 
-      socket.onopen = () => {
-        console.log('WebSocket connected');
-      };
+app.post('/execute', (req, res) => {
+  const command = req.body.command;
 
-      socket.onmessage = event => {
-        console.log('WebSocket message received: ', event.data);
-        setOutput(prevOutput => prevOutput + event.data);
-      };
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+      return;
+    }
 
-      socket.onclose = () => {
-        console.log('WebSocket closed');
-        setTimeout(() => {
-          connectWebSocket();
-        }, 1000);
-      };
+    res.status(200).json({ stdout, stderr });
+  });
+});
 
-      socket.onerror = error => {
-        console.error('WebSocket error: ', error);
-      };
-    };
+wss.on('connection', ws => {
+  console.log('WebSocket connection established');
 
-    connectWebSocket();
+  ws.on('close', () => {
+    console.log('WebSocket connection closed');
+  });
 
-    return () => {
-      socket && socket.close();
-    };
-  }, []);
+  const handleMessage = command => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        ws.send(`Error: ${error.message}\n`);
+        return;
+      }
 
-  return (
-    <div>
-      <h1>Console Output</h1>
-      <pre>{output}</pre>
-    </div>
-  );
-}
+      if (stdout) ws.send(stdout);
+      if (stderr) ws.send(stderr);
+    });
+  };
 
-export default App;
+  ws.on('message', message => {
+    handleMessage(message);
+  });
+});
+
+server.listen(2200, () => {
+  console.log('Server listening on port 2200');
+});
