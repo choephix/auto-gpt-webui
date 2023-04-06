@@ -19,6 +19,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@chakra-ui/css-reset": "^2.1.1"
+  },
   "packageManager": "npm@9.5.0"
 }

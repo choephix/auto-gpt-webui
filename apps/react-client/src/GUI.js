@@ -1,5 +1,6 @@
 import AnsiToHtml from 'ansi-to-html';
 import React, { useEffect, useState } from 'react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 
 const ansiToHtml = new AnsiToHtml();
 
@@ -90,28 +91,28 @@ export function GUI({ socket }) {
   return (
     <div>
       <section>
-        <button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</button>
-        <button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</button>
-        {/* <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button> */}
-        <button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
+        <Button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</Button>
+        <Button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</Button>
+        {/* <Button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</Button> */}
+        <Button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
           Set Custom Search Engine ID
-        </button>
+        </Button>
       </section>
       <hr />
       <section>
         {exeActions.map((action, index) => (
-          <button key={index} onClick={() => execc(action)}>
+          <Button key={index} onClick={() => execc(action)}>
             {action}
-          </button>
+          </Button>
         ))}
       </section>
       <hr />
       <section>
-        <button onClick={() => killProcess()}>Kill</button>
-        <button onClick={() => sendInput('y')}>Send "y"</button>
-        <button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</button>
-        <button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</button>
-        <button onClick={() => sendInput(' ')}>Send "⏎"</button>
+        <Button onClick={() => killProcess()}>Kill</Button>
+        <Button onClick={() => sendInput('y')}>Send "y"</Button>
+        <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
+        <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
+        <Button onClick={() => sendInput(' ')}>Send "⏎"</Button>
       </section>
       <hr />
       {output && (

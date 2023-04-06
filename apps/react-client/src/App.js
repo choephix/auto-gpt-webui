@@ -1,53 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { GUI } from './GUI';
 import useWebSocket from './useWebSocket';
 
+import './App.css';
+
 function App() {
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const connectWebSocket = () => {
-      if (!isMounted) {
-        return;
-      }
-
-      console.log('Connecting to WebSocket...');
-      const socket = new WebSocket('ws://localhost:2200');
-
-      socket.onopen = () => {
-        console.log('WebSocket connected');
-        if (isMounted) {
-          setSocket(socket);
-        }
-      };
-
-      socket.onclose = () => {
-        console.log('WebSocket closed');
-        if (isMounted) {
-          setSocket(null);
-        }
-        setTimeout(() => {
-          connectWebSocket();
-        }, 1000);
-      };
-
-      socket.onerror = error => {
-        console.error('WebSocket error: ', error);
-      };
-    };
-
-    if (!socket) {
-      connectWebSocket();
-    } else {
-      console.log('WebSocket already exists', socket);
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [socket]);
+  const socket = useWebSocket('ws://localhost:2200');
 
   if (!socket) {
     return <div>Connecting...</div>;

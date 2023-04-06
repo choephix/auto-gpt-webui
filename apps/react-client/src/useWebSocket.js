@@ -1,47 +1,52 @@
 // useWebSocket.js
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-const useWebSocket = (url, onOpen, onClose, onError) => {
+const useWebSocket = url => {
   const [socket, setSocket] = useState(null);
-  const ws = useRef(null);
 
   useEffect(() => {
-    if (ws.current) {
-      return;
-    }
-    const connectWebSocket = () => {
-      ws.current = new WebSocket(url);
+    let isMounted = true;
 
-      ws.current.onopen = () => {
-        onOpen && onOpen();
-        setSocket(ws.current);
+    const connectWebSocket = () => {
+      if (!isMounted) {
+        return;
+      }
+
+      console.log('Connecting to WebSocket...');
+      const socket = new WebSocket(url);
+
+      socket.onopen = () => {
+        console.log('WebSocket connected');
+        if (isMounted) {
+          setSocket(socket);
+        }
       };
 
-      ws.current.onclose = () => {
-        onClose && onClose();
-        setSocket(null);
-        ws.current = null;
+      socket.onclose = () => {
+        console.log('WebSocket closed');
+        if (isMounted) {
+          setSocket(null);
+        }
         setTimeout(() => {
           connectWebSocket();
         }, 1000);
       };
 
-      ws.current.onerror = error => {
-        onError && onError(error);
+      socket.onerror = error => {
+        console.error('WebSocket error: ', error);
       };
     };
 
     if (!socket) {
       connectWebSocket();
+    } else {
+      console.log('WebSocket already exists', socket);
     }
 
     return () => {
-      if (ws.current) {
-        ws.current.close();
-        ws.current = null;
-      }
+      isMounted = false;
     };
-  }, [url, onOpen, onClose, onError]);
+  }, [socket, url]);
 
   return socket;
 };
