@@ -24,12 +24,14 @@ export default function SimpleSidebarWrapper({
 }: SimpleSidebarProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH='100vh' bg={useColorModeValue('gray.100', 'gray.900')}>
-      <SidebarContent
+    <Box minH='100dvh'>
+      <SidebarContentWrapper
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
         sidebarContent={sidebarContent}
+        bg={useColorModeValue('gray.50', 'gray.900')}
       />
+
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -40,9 +42,14 @@ export default function SimpleSidebarWrapper({
         size='full'
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} sidebarContent={sidebarContent} />
+          <SidebarContentWrapper
+            onClose={onClose}
+            sidebarContent={sidebarContent}
+            bg={useColorModeValue('gray.50', 'gray.900')}
+          />
         </DrawerContent>
       </Drawer>
+
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p='4'>
         {children}
@@ -56,7 +63,7 @@ interface SidebarProps extends BoxProps {
   onClose: () => void;
 }
 
-const SidebarContent = ({ onClose, sidebarContent, ...rest }: SidebarProps) => {
+const SidebarContentWrapper = ({ onClose, sidebarContent, ...rest }: SidebarProps) => {
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -68,9 +75,6 @@ const SidebarContent = ({ onClose, sidebarContent, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-          Logo
-        </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {sidebarContent}
