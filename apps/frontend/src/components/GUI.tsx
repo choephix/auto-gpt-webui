@@ -1,6 +1,6 @@
-import AnsiToHtml from 'ansi-to-html';
-import React, { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakra-ui/react';
+import AnsiToHtml from 'ansi-to-html';
+import { useEffect, useState } from 'react';
 import { APIService } from '../services/APIService';
 
 const ansiToHtml = new AnsiToHtml();
@@ -45,19 +45,11 @@ export function GUI({ socket }: GUIProps) {
     apiService.killProcess();
   }
 
-  async function setEnvVariable(key: string, value: string) {
-    await apiService.setEnvVariable(key, value);
-  }
-
-  async updateEnvVariable(key: string) {
+  async function updateEnvVariable(key: string) {
     const value = prompt(`Enter value for ${key}:`);
     if (value !== null) {
-      await this.setEnvVariable(key, value);
+      return await apiService.setEnvVariable(key, value);
     }
-  }
-
-  async function updateEnvVariable(key: string) {
-    await updateEnvVariable(key);
   }
 
   return (
