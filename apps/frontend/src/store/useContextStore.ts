@@ -3,6 +3,8 @@ import { createStoreWrappedWithProxy } from '../utils/createStoreWrappedWithProx
 export interface ContextStore {
 	socket: WebSocket | null;
   setSocket: (socket: WebSocket | null) => void;
+
+  
 }
 
 export const useContextStore = createStoreWrappedWithProxy<ContextStore>((set, get) => {

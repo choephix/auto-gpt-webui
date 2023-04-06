@@ -1,6 +1,5 @@
-import { Button, Divider, Heading, Text, VStack } from '@chakra-ui/react';
+import { Button, Divider, Heading, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
-import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
 
 const exeActions = [
   'ls -la',

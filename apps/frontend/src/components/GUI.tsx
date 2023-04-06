@@ -27,11 +27,13 @@ export function GUI({ socket }: GUIProps) {
   }
 
   return (
-    <Flex direction='column' w='full' h='100%'>
+    <Flex direction='column' w='full' h='100dvh'>
       <VStack spacing={6} w='full'>
+        {/* 
         <Heading as='h2' size='lg'>
-          {/* Auto-GPT */} WebUI
+          Auto-GPT WebUI
         </Heading>
+        */}
 
         <Divider />
 
@@ -55,10 +57,6 @@ export function GUI({ socket }: GUIProps) {
           </ButtonGroup>
         )}
       </VStack>
-
-      <Box flex='1 1 0' bg=''>
-        <OutputBox socket={socket} />
-      </Box>
     </Flex>
   );
 }

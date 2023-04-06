@@ -24,7 +24,7 @@ export default function SimpleSidebarWrapper({
 }: SimpleSidebarProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH='100dvh'>
+    <div>
       <SidebarContentWrapper
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -51,11 +51,11 @@ export default function SimpleSidebarWrapper({
       </Drawer>
 
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      
+
       <Box ml={{ base: 0, md: 60 }} p='4' h='100%'>
         {children}
       </Box>
-    </Box>
+    </div>
   );
 }
 
