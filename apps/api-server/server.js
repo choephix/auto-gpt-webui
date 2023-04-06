@@ -19,44 +19,46 @@ const wss = new WebSocket.Server({ noServer: true });
 let activeCommand = null;
 const commandLog = [];
 
-wss.on('connection', ws => {
+wss.on('connection', socket => {
   console.log(`Client connected, sending command log`);
-  ws.send(
-    JSON.stringify({
-      fullConsoleOutput: commandLog.join('\n'),
-      waitingForInput: commandLog[commandLog.length - 1]?.includes('Input:'),
-    })
-  );
+  updateClients(socket);
 });
+
+function updateClients(...sockets) {
+  if (sockets.length === 0) {
+    sockets = wss.clients;
+  }
+
+  sockets.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(
+        JSON.stringify({
+          fullConsoleOutput: commandLog.join(''),
+        })
+      );
+    }
+  });
+}
 
 const appendOutputChunkAndUpdateClients = data => {
   const lines = data.split('\n\r');
-
-  lines.forEach((line, index) => {
+  lines.forEach(line => {
     if (line.startsWith('\r')) {
       commandLog.pop();
     }
+
     if (line != undefined) {
       commandLog.push(line);
     }
   });
 
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(
-        JSON.stringify({
-          fullConsoleOutput: commandLog.join(''),
-          waitingForInput: commandLog[commandLog.length - 1]?.includes('Input:'),
-        })
-      );
-    }
-  });
+  updateClients(...wss.clients);
 
-  console.log(`
-  Added ${lines.length} lines from data: ${data} resulting in ${commandLog.length} lines. 
-  Last line: ${commandLog[commandLog.length - 1]}.
-  Sending to ${wss.clients.size} clients.
-  Full thing: ${commandLog}`);
+  // console.log(`
+  // Added ${lines.length} lines from data: ${data} resulting in ${commandLog.length} lines. 
+  // Last line: ${commandLog[commandLog.length - 1]}.
+  // Sending to ${wss.clients.size} clients.
+  // Full thing: ${commandLog}`);
 };
 
 app.use(express.json());

@@ -6,7 +6,7 @@ interface OutputBoxProps {
 }
 
 export function OutputBox({ socket }: OutputBoxProps) {
-  const { consoleOutput } = useRemoteConsoleOutput(socket);
+  const { consoleOutput, isWaitingForInput } = useRemoteConsoleOutput(socket);
 
   if (!socket) {
     return <Text fontSize='sm'>No socket connection.</Text>;

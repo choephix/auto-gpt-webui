@@ -3,7 +3,7 @@ pre {
   color: white;
   padding: 10px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 10px;
   font-family: monospace;
   white-space: pre-wrap; /* Since CSS 2.1 */
 }

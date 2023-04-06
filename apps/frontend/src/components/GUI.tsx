@@ -1,6 +1,7 @@
 import { Box, Button, ButtonGroup, Divider, Flex, Heading, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
 import { OutputBox } from './OutputBox';
+import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
 
 const exeActions = [`pip install -r requirements.txt`, `python scripts/main.py`];
 
@@ -11,6 +12,8 @@ interface GUIProps {
 }
 
 export function GUI({ socket }: GUIProps) {
+  const { isWaitingForInput } = useRemoteConsoleOutput(socket);
+
   function execc(command: string) {
     apiService.startCommand(command);
   }
@@ -29,6 +32,9 @@ export function GUI({ socket }: GUIProps) {
         <Heading as='h2' size='lg'>
           {/* Auto-GPT */} WebUI
         </Heading>
+
+        <Divider />
+
         <ButtonGroup>
           {exeActions.map((action, index) => (
             <Button key={index} onClick={() => execc(action)}>
@@ -38,14 +44,16 @@ export function GUI({ socket }: GUIProps) {
           <Button onClick={() => killProcess()}>Kill</Button>
         </ButtonGroup>
 
-        <ButtonGroup>
-          <Button onClick={() => sendInput('y')}>Send "y"</Button>
-          <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
-          <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
-          <Button onClick={() => sendInput('')}>Send "⏎"</Button>
-        </ButtonGroup>
-
         <Divider />
+
+        {isWaitingForInput && (
+          <ButtonGroup>
+            <Button onClick={() => sendInput('y')}>Send "y"</Button>
+            <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
+            <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
+            <Button onClick={() => sendInput('')}>Send "⏎"</Button>
+          </ButtonGroup>
+        )}
       </VStack>
 
       <Box flex='1 1 0' bg=''>

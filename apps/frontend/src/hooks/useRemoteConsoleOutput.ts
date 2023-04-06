@@ -5,7 +5,6 @@ const ansiToHtml = new AnsiToHtml();
 
 type MessageData = {
   fullConsoleOutput: string;
-  waitingForInput: boolean;
 };
 
 export function useRemoteConsoleOutput(socket: WebSocket | null) {
@@ -20,12 +19,15 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
     function onMessage(event: MessageEvent) {
       console.log('WebSocket message received: ', event.data);
       const data = JSON.parse(String(event.data)) as MessageData;
-      const { fullConsoleOutput, waitingForInput } = data;
+      const { fullConsoleOutput } = data;
       let output = String(fullConsoleOutput);
       // output = output.replace(/.+Thinking\.\.\..*/gm, '')
       // output = output.replace(/^\s*$[\n\r]{1,}/gm, '🧠 -- Thinking --\n');
       const htmlOutput = ansiToHtml.toHtml(output);
       setOutput(htmlOutput);
+
+      const lastLine = output.split('\n').pop();
+      const waitingForInput = lastLine?.includes('Input:') || lastLine?.includes('(y/n)') || false;
       setWaitingForInput(waitingForInput);
     }
 

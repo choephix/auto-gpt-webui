@@ -1,8 +1,8 @@
-// useWebSocket.js
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useContextStore } from '../store/useContextStore';
 
 const useWebSocketConnection = (url: string) => {
-  const [socket, setSocket] = useState(null as WebSocket | null);
+  const { socket, setSocket } = useContextStore();
 
   useEffect(() => {
     let isMounted = true;
