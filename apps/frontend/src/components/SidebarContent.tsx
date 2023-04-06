@@ -1,5 +1,5 @@
 import { Button, Divider, Heading, VStack } from '@chakra-ui/react';
-import { APIService } from '../services/APIService';
+import { useApiService } from '../hooks/useApiService';
 
 const exeActions = [
   'ls -la',
@@ -9,10 +9,10 @@ const exeActions = [
   `bash ../scripts/mock-user-input.sh`,
 ];
 
-const apiService = new APIService();
-
 export function SidebarContent() {
-  function execc(command: string) {
+  const apiService = useApiService();
+
+  function runCommand(command: string) {
     apiService.startCommand(command);
   }
 
@@ -73,12 +73,14 @@ export function SidebarContent() {
       <Divider />
 
       <Heading size='md'>Actions</Heading>
-      <ButtonList actions={exeActions.map(action => [`exec:\n${action}`, () => execc(action)])} />
+      <ButtonList
+        actions={exeActions.map(action => [`exec:\n${action}`, () => runCommand(action)])}
+      />
 
       <ButtonList
         actions={[
           ['Kill', killProcess],
-          ['Clear Console', () => sendInput('cls')],
+          ['Clear Console', () => runCommand('clear')],
         ]}
       />
 

@@ -2,9 +2,9 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import './App.css';
 import { ActionBar } from './components/ActionBar';
 import { OutputBox } from './components/OutputBox';
+import { SidebarContent } from './components/SidebarContent';
 import { UserInputBar } from './components/UserInputBar';
 import useWebSocketConnection from './hooks/useWebSocketConnection';
-import { SidebarContent } from './components/SidebarContent';
 
 function App() {
   const socket = useWebSocketConnection('ws://localhost:2200');
@@ -44,12 +44,6 @@ function App() {
       </Grid>
     </>
   );
-
-  // return (
-  //   <SimpleSidebarWrapper sidebarContent={<SidebarContent />}>
-  //     <GUI socket={socket} />
-  //   </SimpleSidebarWrapper>
-  // );
 }
 
 export default App;

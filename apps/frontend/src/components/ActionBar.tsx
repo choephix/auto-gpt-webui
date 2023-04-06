@@ -1,10 +1,10 @@
 import { Button, Wrap } from '@chakra-ui/react';
-import { SHELL_COMMANDS } from '../config/shellCommands';
-import { APIService } from '../services/APIService';
-
-const apiService = new APIService();
+import { SHELL_COMMANDS } from '../config/SHELL_COMMANDS';
+import { useApiService } from '../hooks/useApiService';
 
 export function ActionBar() {
+  const apiService = useApiService();
+
   function execc(command: string) {
     apiService.startCommand(command);
   }

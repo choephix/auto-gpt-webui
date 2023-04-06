@@ -1,11 +1,10 @@
 import { Button, ButtonGroup, Text } from '@chakra-ui/react';
+import { useApiService } from '../hooks/useApiService';
 import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
-import { APIService } from '../services/APIService';
 import { useContextStore } from '../store/useContextStore';
 
-const apiService = new APIService();
-
 export function UserInputBar() {
+  const apiService = useApiService();
   const { socket } = useContextStore();
   const { isWaitingForInput } = useRemoteConsoleOutput(socket);
 
@@ -22,9 +21,11 @@ export function UserInputBar() {
           <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
           <Button onClick={() => sendInput('')}>Send "⏎"</Button>
         </ButtonGroup>
-      ) : <>
-        <Text>Not waiting for input</Text>
-      </>}
+      ) : (
+        <>
+          <Text>Not waiting for input</Text>
+        </>
+      )}
     </>
   );
 }

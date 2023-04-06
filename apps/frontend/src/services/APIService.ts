@@ -1,6 +1,8 @@
 export class APIService {
   private readonly baseUrl: string;
 
+  public onError?: (error: string) => void;
+
   constructor() {
     const defaultUrl = 'http://localhost:2200';
     const envUrl = process.env.BACKEND_URL || '';
@@ -25,10 +27,18 @@ export class APIService {
       });
 
       const data = await response.json();
-      console.log(data);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
       return data;
     } catch (error) {
       console.error(`Error during fetch for ${endpoint}:`, error);
+      this.onError?.(String(error));
     }
   }
 
