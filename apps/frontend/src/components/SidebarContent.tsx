@@ -1,7 +1,13 @@
 import { Button, Divider, Heading, Text, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
 
-const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`, `bash ../scripts/spin.sh`];
+const exeActions = [
+  'ls -la',
+  `pip install -r requirements.txt`,
+  `python scripts/main.py`,
+  `bash ../scripts/mock-spinner.sh`,
+  `bash ../scripts/mock-user-input.sh`,
+];
 
 const apiService = new APIService();
 
@@ -34,8 +40,12 @@ export function SidebarContent() {
             w='full'
             onClick={func}
             justifyContent='flex-start'
-            textOverflow={'ellipsis'}
-            overflow={'hidden'}
+            textAlign={'left'}
+            // textOverflow={'ellipsis'}
+            // overflow={'hidden'}
+            whiteSpace={'pre-wrap'}
+            h={'auto'}
+            py={2}
           >
             {label}
           </Button>
@@ -63,7 +73,7 @@ export function SidebarContent() {
       <Divider />
 
       <Heading size='md'>Actions</Heading>
-      <ButtonList actions={exeActions.map(action => [`exec: ${action}`, () => execc(action)])} />
+      <ButtonList actions={exeActions.map(action => [`exec:\n${action}`, () => execc(action)])} />
 
       <ButtonList
         actions={[
