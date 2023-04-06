@@ -24,12 +24,11 @@ export function OutputBox({ socket }: OutputBoxProps) {
     <Box
       flex={1}
       w='full'
-      h='60vh'
+      h='100%'
       overflowY='auto'
       className='output-box'
       bg='gray.50'
       p={4}
-      mt={4}
     >
       <pre dangerouslySetInnerHTML={{ __html: consoleOutput }}></pre>
     </Box>

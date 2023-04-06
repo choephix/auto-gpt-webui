@@ -3,36 +3,11 @@ pre {
   color: white;
   padding: 10px;
   border-radius: 5px;
-  margin: 10px;
   font-size: 14px;
   font-family: monospace;
-
   white-space: pre-wrap; /* Since CSS 2.1 */
-  max-width: 100dvw;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-section,
-.button-group {
-  margin: 10px;
-}
-
-section button {
-  margin-right: 10px;
-}
-
-pre {
-  background-color: #282c34;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px;
-  font-size: 14px;
-  font-family: monospace;
-
-  white-space: pre-wrap; /* Since CSS 2.1 */
-  max-width: 100dvw;
 }

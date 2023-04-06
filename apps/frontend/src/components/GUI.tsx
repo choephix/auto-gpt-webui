@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Divider, Flex, Heading, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
 import { OutputBox } from './OutputBox';
 
@@ -24,7 +24,7 @@ export function GUI({ socket }: GUIProps) {
   }
 
   return (
-    <Container maxW='full'>
+    <Flex direction='column' w='full' h='100%'>
       <VStack spacing={6} w='full'>
         <Heading as='h2' size='lg'>
           Auto-GPT WebUI
@@ -46,11 +46,11 @@ export function GUI({ socket }: GUIProps) {
         </ButtonGroup>
 
         <Divider />
-
-        <Container maxW='full'>
-          <OutputBox socket={socket} />
-        </Container>
       </VStack>
-    </Container>
+
+      <Box flex='1 1 0' bg='tomato'>
+        <OutputBox socket={socket} />
+      </Box>
+    </Flex>
   );
 }

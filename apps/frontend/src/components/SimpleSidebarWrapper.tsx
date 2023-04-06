@@ -15,7 +15,7 @@ import {
 import { ReactNode } from 'react';
 
 type SimpleSidebarProps = {
-  sidebarContent?: ReactNode; //LinkItemProps[];
+  sidebarContent?: ReactNode;
   children?: ReactNode;
 };
 export default function SimpleSidebarWrapper({
@@ -51,7 +51,8 @@ export default function SimpleSidebarWrapper({
       </Drawer>
 
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p='4'>
+      
+      <Box ml={{ base: 0, md: 60 }} p='4' h='100%'>
         {children}
       </Box>
     </Box>
