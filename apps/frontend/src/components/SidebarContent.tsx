@@ -29,7 +29,14 @@ export function SidebarContent() {
     return (
       <VStack w='full' spacing={2}>
         {props.actions?.map(([label, func], index) => (
-          <Button key={index} w='full' onClick={func} alignContent={"start"}>
+          <Button
+            key={index}
+            w='full'
+            onClick={func}
+            justifyContent='flex-start'
+            textOverflow={'ellipsis'}
+            overflow={'hidden'}
+          >
             {label}
           </Button>
         ))}
