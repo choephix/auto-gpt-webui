@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/favicon.png';
 import './App.css'
-import { GUI } from './GUI';
+import { GUI } from './components/GUI';
 import useWebSocket from './hooks/useWebSocket';
 
 function App() {
