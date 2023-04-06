@@ -46,7 +46,10 @@ app.post('/execute', (req, res) => {
 
   commandLog = '';
 
-  activeCommand = exec(command, error => {
+  // Set the cwd option to the desired directory
+  const options = { cwd: '../../auto-gpt' };
+
+  activeCommand = exec(command, options, error => {
     if (error) {
       console.error(`Error executing command: ${error.message}`);
     }

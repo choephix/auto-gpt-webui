@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const RELATIVE_PATH_TO_AUTOGPT = '../../auto-gpt';
+const RELATIVE_PATH_TO_AUTOGPT = '.';
 const exeActions = [
   'ls -la',
   // `pip install -r ${RELATIVE_PATH_TO_AUTOGPT}/requirements.txt --target=${RELATIVE_PATH_TO_AUTOGPT}`,
@@ -73,7 +73,7 @@ function GUI({ socket }) {
       <button onClick={() => sendInput('y')}>Send "y"</button>
       <button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</button>
       <button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</button>
-      <button onClick={() => sendInput('')}>Send "⏎"</button>
+      <button onClick={() => sendInput(' ')}>Send "⏎"</button>
       <hr />
       <h1>Console Output</h1>
       <pre>{output}</pre>
@@ -96,6 +96,7 @@ function App() {
 
       socket.onclose = () => {
         console.log('WebSocket closed');
+        setSocket(null);
         setTimeout(() => {
           connectWebSocket();
         }, 1000);
@@ -110,7 +111,7 @@ function App() {
       console.log('Connecting to WebSocket...');
       connectWebSocket();
     } else {
-      console.log('WebSocket already connected', socket);
+      console.log('WebSocket already exists', socket);
     }
 
     // return () => {
