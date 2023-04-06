@@ -44,11 +44,13 @@ function App() {
         <GridItem
           rounded='sm'
           p='2'
-          bg='green.300'
+          // bg='green.300'
           area='main'
           overflow='auto'
-          className='pretty-scrollbar'
+          className='pretty-scrollbar main-area'
+          position='relative'
         >
+          <div className='bg'></div>
           <TaskOutputArea />
         </GridItem>
         <GridItem rounded='sm' p='2' bg='blue.300' area={'footer'}>

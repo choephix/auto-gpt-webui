@@ -1,7 +1,5 @@
-import { Button, ButtonGroup, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
-import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
-import { useContextStore } from '../store/useContextStore';
 
 export function UserInputBar() {
   const apiService = useApiService();

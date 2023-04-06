@@ -1,13 +1,5 @@
 import { CheckIcon } from '@chakra-ui/icons';
-import
-  {
-    Box,
-    Button,
-    ButtonGroup,
-    Container,
-    Spacer,
-    Text
-  } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Container, Spacer, Text } from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
 import { OutputSegment, useContextStore } from '../store/useContextStore';
 
@@ -103,10 +95,7 @@ export function TaskOutputArea() {
   }
 
   return (
-    <Container maxW='container.xl' display="relative">
-      {/* <div className='stripe'>
-        <div className='stripe_inner'>WARNING</div>
-      </div> */}
+    <Container maxW='container.xl' display='relative'>
       {outputSegments.map((segment, index) => {
         return <SegmentBox key={index} segment={segment} />;
       })}
