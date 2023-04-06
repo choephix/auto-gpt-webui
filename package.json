@@ -10,7 +10,8 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "dev": "turbo run dev",
-    "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\"",
+    "rimraf": "npx rimraf --glob **/node_modules"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
