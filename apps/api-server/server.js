@@ -59,6 +59,21 @@ app.post('/execute', (req, res) => {
   res.status(200).json({ message: 'Command received, processing...' });
 });
 
+app.post('/input', (req, res) => {
+  const { input } = req.body;
+
+  if (!input) {
+    return res.status(400).json({ error: 'Input is required.' });
+  }
+
+  if (!activeCommand) {
+    return res.status(400).json({ error: 'No command is currently running.' });
+  }
+
+  activeCommand.stdin.write(input + '\n');
+  res.status(200).json({ message: 'Input sent to the active command.' });
+});
+
 app.all('/kill', (req, res) => {
   if (!activeCommand) {
     return res.status(400).json({ error: 'No command is currently running.' });

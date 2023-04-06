@@ -36,6 +36,29 @@ function GUI({ socket }) {
       .then(data => console.log(data));
   }
 
+  function sendInput(input) {
+    fetch('http://localhost:2200/input', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ input }),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
+  function killProcess() {
+    fetch('http://localhost:2200/kill', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
   return (
     <div>
       {exeActions.map((action, index) => (
@@ -45,8 +68,16 @@ function GUI({ socket }) {
           </button>
         </div>
       ))}
+      <hr />
+      <button onClick={() => killProcess()}>Kill</button>
+      <button onClick={() => sendInput('y')}>Send "y"</button>
+      <button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</button>
+      <button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</button>
+      <button onClick={() => sendInput('')}>Send "⏎"</button>
+      <hr />
       <h1>Console Output</h1>
       <pre>{output}</pre>
+      <hr />
     </div>
   );
 }
