@@ -116,17 +116,28 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const connectWebSocket = () => {
-      let socket = new WebSocket('ws://localhost:2200');
-      setSocket(socket);
+      if (!isMounted) {
+        return;
+      }
+
+      console.log('Connecting to WebSocket...');
+      const socket = new WebSocket('ws://localhost:2200');
 
       socket.onopen = () => {
         console.log('WebSocket connected');
+        if (isMounted) {
+          setSocket(socket);
+        }
       };
 
       socket.onclose = () => {
         console.log('WebSocket closed');
-        setSocket(null);
+        if (isMounted) {
+          setSocket(null);
+        }
         setTimeout(() => {
           connectWebSocket();
         }, 1000);
@@ -138,11 +149,14 @@ function App() {
     };
 
     if (!socket) {
-      console.log('Connecting to WebSocket...');
       connectWebSocket();
     } else {
       console.log('WebSocket already exists', socket);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [socket]);
 
   if (!socket) {
