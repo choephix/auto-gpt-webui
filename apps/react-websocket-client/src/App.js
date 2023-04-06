@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AnsiToHtml from 'ansi-to-html';
+const ansiToHtml = new AnsiToHtml();
 
 const exeActions = [
   'ls -la',
@@ -13,7 +15,8 @@ function GUI({ socket }) {
   useEffect(() => {
     function onMessage(event) {
       console.log('WebSocket message received: ', event.data);
-      setOutput(event.data);
+      const htmlOutput = ansiToHtml.toHtml(event.data);
+      setOutput(htmlOutput);
     }
 
     socket.addEventListener('message', onMessage);
@@ -84,7 +87,7 @@ function GUI({ socket }) {
     <div>
       <button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</button>
       <button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</button>
-      <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button>
+      {/* <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button> */}
       <button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
         Set Custom Search Engine ID
       </button>
@@ -102,7 +105,8 @@ function GUI({ socket }) {
       <button onClick={() => sendInput(' ')}>Send "⏎"</button>
       <hr />
       <h1>Console Output</h1>
-      <pre>{output}</pre>
+      {/* <pre>{output}</pre> */}
+      <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
       <hr />
     </div>
   );
@@ -139,10 +143,6 @@ function App() {
     } else {
       console.log('WebSocket already exists', socket);
     }
-
-    // return () => {
-    //   socket && socket.close();
-    // };
   }, [socket]);
 
   if (!socket) {
