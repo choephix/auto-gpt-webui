@@ -16,8 +16,9 @@ export function GUI({ socket }) {
   useEffect(() => {
     function onMessage(event) {
       console.log('WebSocket message received: ', event.data);
-      // const rawOutput = event.data.replace(/^[\/|\-\\]*\sThinking\.\.\.$/g, '');
-      const rawOutput = event.data.replace(/Thinking$/g, '');
+      const rawOutput = String(event.data)
+        .replace(/.+Thinking\.\.\..*/gm, '')
+        .replace(/^\s*$[\n\r]{1,}/gm, '🧠 -- Thinking --\n');
       const htmlOutput = ansiToHtml.toHtml(rawOutput);
       setOutput(htmlOutput);
     }
