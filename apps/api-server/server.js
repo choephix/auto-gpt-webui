@@ -21,10 +21,10 @@ const commandLog = [];
 
 wss.on('connection', socket => {
   console.log(`Client connected, sending command log`);
-  updateClients(socket);
+  updateClients([socket]);
 });
 
-function updateClients(...sockets) {
+function updateClients(sockets, latestChunk = null) {
   if (sockets.length === 0) {
     sockets = wss.clients;
   }
@@ -33,7 +33,8 @@ function updateClients(...sockets) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(
         JSON.stringify({
-          fullConsoleOutput: commandLog.join(''),
+          fullConsoleOutput: commandLog.join('\n'),
+          latestChunk,
         })
       );
     }
@@ -41,21 +42,43 @@ function updateClients(...sockets) {
 }
 
 const appendOutputChunkAndUpdateClients = data => {
-  const lines = data.split('\n\r');
-  lines.forEach(line => {
-    if (line.startsWith('\r')) {
-      commandLog.pop();
+  function deleteLastLineIfCarrotMovedToBeginning() {
+    const lastSavedLine = commandLog[commandLog.length - 1];
+    if (!lastSavedLine?.endsWith('\r')) {
+      return false;
     }
 
-    if (line != undefined) {
+    console.log(`Deleting last line because it ended with a \\r: ${JSON.stringify([...lastSavedLine])}`);
+    commandLog.pop();
+    return true;
+  }
+
+  const lines = data.split('\n');
+
+  if (lines.length == 0) {
+    return;
+  }
+
+  const [firstLine, ...restOfLines] = lines;
+
+  const deletedLastLine = deleteLastLineIfCarrotMovedToBeginning();
+  if (!deletedLastLine) {
+    commandLog[commandLog.length - 1] = commandLog[commandLog.length - 1] + firstLine;
+  } else {
+    commandLog.push(firstLine);
+  }
+
+  if (restOfLines.length > 0) {
+    for (const line of restOfLines) {
+      deleteLastLineIfCarrotMovedToBeginning();
       commandLog.push(line);
     }
-  });
+  }
 
-  updateClients(...wss.clients);
+  updateClients(wss.clients, data);
 
   // console.log(`
-  // Added ${lines.length} lines from data: ${data} resulting in ${commandLog.length} lines. 
+  // Added ${lines.length} lines from data: ${data} resulting in ${commandLog.length} lines.
   // Last line: ${commandLog[commandLog.length - 1]}.
   // Sending to ${wss.clients.size} clients.
   // Full thing: ${commandLog}`);
