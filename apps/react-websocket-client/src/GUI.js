@@ -114,8 +114,12 @@ export function GUI({ socket }) {
         <button onClick={() => sendInput(' ')}>Send "⏎"</button>
       </section>
       <hr />
-      {output && <pre dangerouslySetInnerHTML={{ __html: output }}></pre>}
-      <hr />
+      {output && (
+        <>
+          <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
+          <hr />
+        </>
+      )}
     </div>
   );
 }
