@@ -89,28 +89,32 @@ export function GUI({ socket }) {
 
   return (
     <div>
-      <button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</button>
-      <button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</button>
-      {/* <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button> */}
-      <button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
-        Set Custom Search Engine ID
-      </button>
-      <hr />
-      {exeActions.map((action, index) => (
-        <button key={index} onClick={() => execc(action)}>
-          {action}
+      <section>
+        <button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</button>
+        <button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</button>
+        {/* <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button> */}
+        <button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
+          Set Custom Search Engine ID
         </button>
-      ))}
+      </section>
       <hr />
-      <button onClick={() => killProcess()}>Kill</button>
-      <button onClick={() => sendInput('y')}>Send "y"</button>
-      <button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</button>
-      <button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</button>
-      <button onClick={() => sendInput(' ')}>Send "⏎"</button>
+      <section>
+        {exeActions.map((action, index) => (
+          <button key={index} onClick={() => execc(action)}>
+            {action}
+          </button>
+        ))}
+      </section>
       <hr />
-      <h1>Console Output</h1>
-      {/* <pre>{output}</pre> */}
-      <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
+      <section>
+        <button onClick={() => killProcess()}>Kill</button>
+        <button onClick={() => sendInput('y')}>Send "y"</button>
+        <button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</button>
+        <button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</button>
+        <button onClick={() => sendInput(' ')}>Send "⏎"</button>
+      </section>
+      <hr />
+      {output && <pre dangerouslySetInnerHTML={{ __html: output }}></pre>}
       <hr />
     </div>
   );

@@ -32,4 +32,4 @@ yarn-error.log*
 # turbo
 .turbo
 
-/auto-gpt/
+/auto-gpt

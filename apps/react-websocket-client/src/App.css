@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+pre {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 14px;
+  font-family: monospace;
+
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  max-width: 100dvw;
+}
