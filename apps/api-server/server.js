@@ -88,6 +88,8 @@ app.use(express.json());
 app.post('/execute', (req, res) => {
   const { command } = req.body;
 
+  console.log(`Received command: ${command}`);
+
   if (!command) {
     return res.status(400).json({ error: 'Command is required.' });
   }

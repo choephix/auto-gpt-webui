@@ -1,17 +1,15 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Text,
-  Input,
-  ColorModeScript,
-  theme,
-  Spacer,
-  Container,
-} from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
+import
+  {
+    Box,
+    Button,
+    ButtonGroup,
+    Container,
+    Spacer,
+    Text
+  } from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
 import { OutputSegment, useContextStore } from '../store/useContextStore';
-import { CheckIcon, SmallCloseIcon } from '@chakra-ui/icons';
 
 export function TaskOutputArea() {
   const { socket, outputSegments } = useContextStore();
