@@ -1,7 +1,7 @@
 // useWebSocket.js
 import { useState, useEffect } from 'react';
 
-const useWebSocket = (url: string) => {
+const useWebSocketConnection = (url: string) => {
   const [socket, setSocket] = useState(null as WebSocket | null);
 
   useEffect(() => {
@@ -51,4 +51,4 @@ const useWebSocket = (url: string) => {
   return socket;
 };
 
-export default useWebSocket;
+export default useWebSocketConnection;

@@ -2,10 +2,10 @@ import './App.css';
 import { GUI } from './components/GUI';
 import { SidebarContent } from './components/SidebarContent';
 import SimpleSidebarWrapper from './components/SimpleSidebarWrapper';
-import useWebSocket from './hooks/useWebSocket';
+import useWebSocketConnection from './hooks/useWebSocketConnection';
 
 function App() {
-  const socket = useWebSocket('ws://localhost:2200');
+  const socket = useWebSocketConnection('ws://localhost:2200');
 
   if (!socket) {
     return <div>Connecting...</div>;

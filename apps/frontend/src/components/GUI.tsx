@@ -2,7 +2,7 @@ import { Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakr
 import { APIService } from '../services/APIService';
 import { OutputBox } from './OutputBox';
 
-const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`];
+const exeActions = [`pip install -r requirements.txt`, `python scripts/main.py`];
 
 const apiService = new APIService();
 
@@ -23,31 +23,11 @@ export function GUI({ socket }: GUIProps) {
     apiService.killProcess();
   }
 
-  async function updateEnvVariable(key: string) {
-    const value = prompt(`Enter value for ${key}:`);
-    if (value !== null) {
-      return await apiService.setEnvVariable(key, value);
-    }
-  }
-
   return (
     <Container maxW='full'>
       <VStack spacing={6} w='full'>
         <Heading as='h2' size='lg'>
-          Environment Variables
-        </Heading>
-        <ButtonGroup>
-          <Button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</Button>
-          <Button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</Button>
-          <Button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
-            Set Custom Search Engine ID
-          </Button>
-        </ButtonGroup>
-
-        <Divider />
-
-        <Heading as='h2' size='lg'>
-          Actions
+          Auto-GPT WebUI
         </Heading>
         <ButtonGroup>
           {exeActions.map((action, index) => (
@@ -55,15 +35,10 @@ export function GUI({ socket }: GUIProps) {
               exec: {action}
             </Button>
           ))}
+          <Button onClick={() => killProcess()}>Kill</Button>
         </ButtonGroup>
 
-        <Divider />
-
-        <Heading as='h2' size='lg'>
-          Controls
-        </Heading>
         <ButtonGroup>
-          <Button onClick={() => killProcess()}>Kill</Button>
           <Button onClick={() => sendInput('y')}>Send "y"</Button>
           <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
           <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>

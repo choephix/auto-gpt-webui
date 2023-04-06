@@ -47,9 +47,9 @@ export function SidebarContent() {
 
   return (
     <VStack align='start' spacing={6} padding={3}>
-      <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
+      {/* <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
         Logo
-      </Text>
+      </Text> */}
 
       <Heading size='md'>Environment Variables</Heading>
       <ButtonList
@@ -65,12 +65,18 @@ export function SidebarContent() {
       <Heading size='md'>Actions</Heading>
       <ButtonList actions={exeActions.map(action => [`exec: ${action}`, () => execc(action)])} />
 
-      <Divider />
-
-      <Heading size='md'>Controls</Heading>
       <ButtonList
         actions={[
           ['Kill', killProcess],
+          ['Clear Console', () => sendInput('cls')],
+        ]}
+      />
+
+      <Divider />
+
+      <Heading size='md'>Input</Heading>
+      <ButtonList
+        actions={[
           ['Send "y"', () => sendInput('y')],
           ['Send "Jonkata"', () => sendInput('Jonkata')],
           ['Send "Joke"', () => sendInput('Come up with a funny joke')],
