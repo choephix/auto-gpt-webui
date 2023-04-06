@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const RELATIVE_PATH_TO_AUTOGPT = '.';
 const exeActions = [
   'ls -la',
   // `pip install -r ${RELATIVE_PATH_TO_AUTOGPT}/requirements.txt --target=${RELATIVE_PATH_TO_AUTOGPT}`,
-  `pip install -r ${RELATIVE_PATH_TO_AUTOGPT}/requirements.txt`,
-  `python ${RELATIVE_PATH_TO_AUTOGPT}/scripts/main.py`,
+  `pip install -r requirements.txt`,
+  `python scripts/main.py`,
 ];
 
 function GUI({ socket }) {

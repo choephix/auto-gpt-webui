@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 
 const PORT = process.env.PORT || 2200;
+const RELATIVE_PATH_TO_AUTOGPT = '../../auto-gpt';
 
 // Initialize a WebSocket server
 const wss = new WebSocket.Server({ noServer: true });
@@ -51,7 +52,7 @@ app.post('/execute', (req, res) => {
   commandLog = '';
 
   // Set the cwd option to the desired directory
-  const options = { cwd: '../../auto-gpt' };
+  const options = { cwd: RELATIVE_PATH_TO_AUTOGPT };
 
   activeCommand = exec(command, options, error => {
     if (error) {
@@ -91,7 +92,6 @@ app.all('/kill', (req, res) => {
   res.status(200).json({ message: 'Active command killed.' });
 });
 
-
 app.post('/setenv', (req, res) => {
   const { key, value } = req.body;
 
@@ -99,7 +99,7 @@ app.post('/setenv', (req, res) => {
     return res.status(400).json({ error: 'Key and value are required.' });
   }
 
-  const envFilePath = path.join(__dirname, '.env');
+  const envFilePath = path.join(__dirname, RELATIVE_PATH_TO_AUTOGPT, '.env');
 
   // Check if the .env file exists, create it if not
   if (!fs.existsSync(envFilePath)) {
