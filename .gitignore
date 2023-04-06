@@ -33,3 +33,4 @@ yarn-error.log*
 .turbo
 
 /auto-gpt
+ai_settings.yaml

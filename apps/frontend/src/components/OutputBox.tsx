@@ -1,5 +1,4 @@
 import { Box, Text } from '@chakra-ui/react';
-import AnsiToHtml from 'ansi-to-html';
 import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
 
 interface OutputBoxProps {

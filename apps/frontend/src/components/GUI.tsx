@@ -27,7 +27,7 @@ export function GUI({ socket }: GUIProps) {
     <Flex direction='column' w='full' h='100%'>
       <VStack spacing={6} w='full'>
         <Heading as='h2' size='lg'>
-          Auto-GPT WebUI
+          {/* Auto-GPT */} WebUI
         </Heading>
         <ButtonGroup>
           {exeActions.map((action, index) => (
@@ -48,7 +48,7 @@ export function GUI({ socket }: GUIProps) {
         <Divider />
       </VStack>
 
-      <Box flex='1 1 0' bg='tomato'>
+      <Box flex='1 1 0' bg=''>
         <OutputBox socket={socket} />
       </Box>
     </Flex>

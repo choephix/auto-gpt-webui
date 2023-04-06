@@ -17,27 +17,46 @@ const RELATIVE_PATH_TO_AUTOGPT = '../../auto-gpt';
 const wss = new WebSocket.Server({ noServer: true });
 
 let activeCommand = null;
-let commandLog = '';
+const commandLog = [];
 
 wss.on('connection', ws => {
   console.log(`Client connected, sending command log`);
-  ws.send(commandLog);
+  ws.send(
+    JSON.stringify({
+      fullConsoleOutput: commandLog.join('\n'),
+      waitingForInput: commandLog[commandLog.length - 1]?.includes('Input:'),
+    })
+  );
 });
 
-const updateClients = data => {
-  const hasBackspace = data.includes('\r');
+const appendOutputChunkAndUpdateClients = data => {
+  const lines = data.split('\n\r');
 
-  console.log(`💛 hasBackspace: ${hasBackspace}`);
-
-  commandLog += data;
-
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(commandLog);
+  lines.forEach((line, index) => {
+    if (line.startsWith('\r')) {
+      commandLog.pop();
+    }
+    if (line != undefined) {
+      commandLog.push(line);
     }
   });
 
-  console.log(data, `sent to ${wss.clients.size} clients`);
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(
+        JSON.stringify({
+          fullConsoleOutput: commandLog.join(''),
+          waitingForInput: commandLog[commandLog.length - 1]?.includes('Input:'),
+        })
+      );
+    }
+  });
+
+  console.log(`
+  Added ${lines.length} lines from data: ${data} resulting in ${commandLog.length} lines. 
+  Last line: ${commandLog[commandLog.length - 1]}.
+  Sending to ${wss.clients.size} clients.
+  Full thing: ${commandLog}`);
 };
 
 app.use(express.json());
@@ -53,7 +72,7 @@ app.post('/execute', (req, res) => {
     return res.status(400).json({ error: 'Another command is already running.' });
   }
 
-  commandLog = '';
+  commandLog.length = 0;
 
   // Set the cwd option to the desired directory
   const options = { cwd: RELATIVE_PATH_TO_AUTOGPT };
@@ -65,8 +84,8 @@ app.post('/execute', (req, res) => {
     activeCommand = null;
   });
 
-  activeCommand.stdout.on('data', updateClients);
-  activeCommand.stderr.on('data', updateClients);
+  activeCommand.stdout.on('data', appendOutputChunkAndUpdateClients);
+  activeCommand.stderr.on('data', appendOutputChunkAndUpdateClients);
 
   res.status(200).json({ message: 'Command received, processing...' });
 });

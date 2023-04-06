@@ -7,10 +7,6 @@ import useWebSocketConnection from './hooks/useWebSocketConnection';
 function App() {
   const socket = useWebSocketConnection('ws://localhost:2200');
 
-  if (!socket) {
-    return <div>Connecting...</div>;
-  }
-
   return (
     <SimpleSidebarWrapper sidebarContent={<SidebarContent />}>
       <GUI socket={socket} />
