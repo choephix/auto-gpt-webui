@@ -70,7 +70,7 @@ app.post('/execute', (req, res) => {
 app.post('/input', (req, res) => {
   const { input } = req.body;
 
-  if (!input) {
+  if (input === undefined || input === null) {
     return res.status(400).json({ error: 'Input is required.' });
   }
 

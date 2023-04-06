@@ -112,7 +112,7 @@ export function GUI({ socket }) {
         <Button onClick={() => sendInput('y')}>Send "y"</Button>
         <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
         <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
-        <Button onClick={() => sendInput(' ')}>Send "⏎"</Button>
+        <Button onClick={() => sendInput('')}>Send "⏎"</Button>
       </section>
       <hr />
       {output && (
