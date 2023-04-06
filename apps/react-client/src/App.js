@@ -1,6 +1,6 @@
 import React from 'react';
 import { GUI } from './GUI';
-import useWebSocket from './useWebSocket';
+import useWebSocket from './hooks/useWebSocket';
 
 import './App.css';
 
