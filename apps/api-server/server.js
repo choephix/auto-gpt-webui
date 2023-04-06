@@ -15,16 +15,20 @@ let activeCommand = null;
 let commandLog = '';
 
 wss.on('connection', ws => {
+  console.log(`Client connected, sending command log`);
   ws.send(commandLog);
 });
 
 const updateClients = data => {
   commandLog += data;
+
   wss.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(data);
+      client.send(commandLog);
     }
   });
+
+  console.log(data, `sent to ${wss.clients.size} clients`);
 };
 
 app.use(express.json());
@@ -39,6 +43,8 @@ app.post('/execute', (req, res) => {
   if (activeCommand) {
     return res.status(400).json({ error: 'Another command is already running.' });
   }
+
+  commandLog = '';
 
   activeCommand = exec(command, error => {
     if (error) {
