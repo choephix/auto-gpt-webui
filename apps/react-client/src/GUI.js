@@ -4,12 +4,7 @@ import { Button, ButtonGroup } from '@chakra-ui/react';
 
 const ansiToHtml = new AnsiToHtml();
 
-const exeActions = [
-  'ls -la',
-  // `pip install -r ${RELATIVE_PATH_TO_AUTOGPT}/requirements.txt --target=${RELATIVE_PATH_TO_AUTOGPT}`,
-  `pip install -r requirements.txt`,
-  `python scripts/main.py`,
-];
+const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`];
 
 export function GUI({ socket }) {
   const [output, setOutput] = useState('');
@@ -31,56 +26,37 @@ export function GUI({ socket }) {
     };
   }, [socket]);
 
-  function execc(command) {
-    fetch('http://localhost:2200/execute', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ command }),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data));
-  }
-
-  function sendInput(input) {
-    fetch('http://localhost:2200/input', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ input }),
-    })
-      .then(response => response.json())
-      .then(data => console.log(data));
-  }
-
-  function killProcess() {
-    fetch('http://localhost:2200/kill', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(data => console.log(data));
-  }
-
-  async function setEnvVariable(key, value) {
+  async function fetchWrapper(url, method, body) {
     try {
-      const response = await fetch('http://localhost:2200/setenv', {
-        method: 'POST',
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ key, value }),
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
       console.log(data);
     } catch (error) {
-      console.error('Error setting environment variable:', error);
+      console.error(`Error during fetch for ${url}:`, error);
     }
+  }
+
+  function execc(command) {
+    fetchWrapper('http://localhost:2200/execute', 'POST', { command });
+  }
+
+  function sendInput(input) {
+    fetchWrapper('http://localhost:2200/input', 'POST', { input });
+  }
+
+  function killProcess() {
+    fetchWrapper('http://localhost:2200/kill', 'POST');
+  }
+
+  async function setEnvVariable(key, value) {
+    await fetchWrapper('http://localhost:2200/setenv', 'POST', { key, value });
   }
 
   async function updateEnvVariable(key) {

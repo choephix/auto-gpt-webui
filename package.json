@@ -9,6 +9,7 @@
     "init": "git clone https://github.com/Torantulino/Auto-GPT.git auto-gpt",
     "build": "turbo run build",
     "start": "turbo run start",
+    "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\""
   },
   "devDependencies": {

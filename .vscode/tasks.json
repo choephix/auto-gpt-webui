@@ -3,9 +3,9 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "start",
+      "script": "dev",
       "label": "🔰",
-      "detail": "turbo run start",
+      "detail": "turbo run dev",
       "presentation": {
         "echo": true,
         "reveal": "always",
