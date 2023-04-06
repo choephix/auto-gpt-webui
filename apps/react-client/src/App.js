@@ -11,11 +11,7 @@ function App() {
     return <div>Connecting...</div>;
   }
 
-  return (
-    <div>
-      <GUI socket={socket} />
-    </div>
-  );
+  return <GUI socket={socket} />;
 }
 
 export default App;

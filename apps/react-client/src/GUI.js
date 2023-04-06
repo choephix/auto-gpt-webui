@@ -1,6 +1,6 @@
 import AnsiToHtml from 'ansi-to-html';
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakra-ui/react';
 
 const ansiToHtml = new AnsiToHtml();
 
@@ -65,38 +65,64 @@ export function GUI({ socket }) {
   }
 
   return (
-    <div>
-      <section>
-        <Button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</Button>
-        <Button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</Button>
-        {/* <Button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</Button> */}
-        <Button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
-          Set Custom Search Engine ID
-        </Button>
-      </section>
-      <hr />
-      <section>
-        {exeActions.map((action, index) => (
-          <Button key={index} onClick={() => execc(action)}>
-            {action}
+    <Container maxW='full'>
+      <VStack spacing={6} w='full'>
+        <Heading as='h2' size='lg'>
+          Environment Variables
+        </Heading>
+        <ButtonGroup>
+          <Button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</Button>
+          <Button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</Button>
+          <Button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
+            Set Custom Search Engine ID
           </Button>
-        ))}
-      </section>
-      <hr />
-      <section>
-        <Button onClick={() => killProcess()}>Kill</Button>
-        <Button onClick={() => sendInput('y')}>Send "y"</Button>
-        <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
-        <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
-        <Button onClick={() => sendInput('')}>Send "⏎"</Button>
-      </section>
-      <hr />
-      {output && (
-        <>
-          <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
-          <hr />
-        </>
-      )}
-    </div>
+        </ButtonGroup>
+
+        <Divider />
+
+        <Heading as='h2' size='lg'>
+          Actions
+        </Heading>
+        <ButtonGroup>
+          {exeActions.map((action, index) => (
+            <Button key={index} onClick={() => execc(action)}>
+              {action}
+            </Button>
+          ))}
+        </ButtonGroup>
+
+        <Divider />
+
+        <Heading as='h2' size='lg'>
+          Controls
+        </Heading>
+        <ButtonGroup>
+          <Button onClick={() => killProcess()}>Kill</Button>
+          <Button onClick={() => sendInput('y')}>Send "y"</Button>
+          <Button onClick={() => sendInput('Jonkata')}>Send "Jonkata"</Button>
+          <Button onClick={() => sendInput('Come up with a funny joke')}>Send "Joke"</Button>
+          <Button onClick={() => sendInput('')}>Send "⏎"</Button>
+        </ButtonGroup>
+
+        <Divider />
+
+        <Container maxW='full'>
+          {output && (
+            <Box
+              flex={1}
+              w='full'
+              h='60vh'
+              overflowY='auto'
+              className='output-box'
+              bg='gray.50'
+              p={4}
+              mt={4}
+            >
+              <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
+            </Box>
+          )}
+        </Container>
+      </VStack>
+    </Container>
   );
 }
