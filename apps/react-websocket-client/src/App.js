@@ -59,14 +59,41 @@ function GUI({ socket }) {
       .then(data => console.log(data));
   }
 
+  async function setEnvVariable(key, value) {
+    try {
+      const response = await fetch('http://localhost:2200/setenv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ key, value }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error setting environment variable:', error);
+    }
+  }
+
+  async function updateEnvVariable(key) {
+    const value = prompt(`Enter value for ${key}:`);
+    await setEnvVariable(key, value);
+  }
+
   return (
     <div>
+      <button onClick={() => updateEnvVariable('OPENAI_API_KEY')}>Set OpenAI API Key</button>
+      <button onClick={() => updateEnvVariable('GOOGLE_API_KEY')}>Set Google API Key</button>
+      <button onClick={() => updateEnvVariable('ELEVENLABS_API_KEY')}>Set 11Labs API Key</button>
+      <button onClick={() => updateEnvVariable('CUSTOM_SEARCH_ENGINE_ID')}>
+        Set Custom Search Engine ID
+      </button>
+      <hr />
       {exeActions.map((action, index) => (
-        <div key={index}>
-          <button key={index} onClick={() => execc(action)}>
-            {action}
-          </button>
-        </div>
+        <button key={index} onClick={() => execc(action)}>
+          {action}
+        </button>
       ))}
       <hr />
       <button onClick={() => killProcess()}>Kill</button>

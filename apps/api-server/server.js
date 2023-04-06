@@ -3,6 +3,10 @@ const cors = require('cors');
 const { exec } = require('child_process');
 const WebSocket = require('ws');
 
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
+
 const app = express();
 app.use(cors());
 
@@ -85,6 +89,39 @@ app.all('/kill', (req, res) => {
   activeCommand.kill();
   activeCommand = null;
   res.status(200).json({ message: 'Active command killed.' });
+});
+
+
+app.post('/setenv', (req, res) => {
+  const { key, value } = req.body;
+
+  if (!key || !value) {
+    return res.status(400).json({ error: 'Key and value are required.' });
+  }
+
+  const envFilePath = path.join(__dirname, '.env');
+
+  // Check if the .env file exists, create it if not
+  if (!fs.existsSync(envFilePath)) {
+    fs.writeFileSync(envFilePath, '');
+  }
+
+  // Read the contents of the .env file and parse it
+  const envFileContents = fs.readFileSync(envFilePath, 'utf8');
+  const envVars = dotenv.parse(envFileContents);
+
+  // Update the env variable or add a new one
+  envVars[key] = value;
+
+  // Convert the envVars object back to a string
+  const updatedEnvFileContents = Object.entries(envVars)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('\n');
+
+  // Write the updated contents back to the .env file
+  fs.writeFileSync(envFilePath, updatedEnvFileContents);
+
+  res.status(200).json({ message: 'Environment variable set.' });
 });
 
 const server = app.listen(PORT, () => {
