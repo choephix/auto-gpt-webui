@@ -74,10 +74,6 @@ const appendOutputChunkAndUpdateClients = data => {
     }
   }
 
-  if (data.endsWith('\n')) {
-    commandLog.push('');
-  }
-
   updateClients(wss.clients, data);
 
   // console.log(`

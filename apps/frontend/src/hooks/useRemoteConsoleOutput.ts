@@ -50,11 +50,13 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
       }
 
       const lastLine = outputLines[outputLines.length - 1];
-      if (lastLine.includes('Input:')) {
-        segments[segmentIndex].expectedUserInteraction = 'text';
-      } else if (lastLine.includes('(y/n)')) {
+      if (lastLine.includes('(y/n)')) {
         segments[segmentIndex].expectedUserInteraction = 'yesno';
+      } else if (lastLine.includes('Input:') || lastLine.endsWith(': ')) {
+        segments[segmentIndex].expectedUserInteraction = 'text';
       }
+
+      console.log('lastLine: ', lastLine);
 
       setOutputSegments(segments);
     }

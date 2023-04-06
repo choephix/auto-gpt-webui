@@ -1,4 +1,13 @@
-import { Box, Button, ButtonGroup, Text, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Text,
+  Input,
+  ColorModeScript,
+  theme,
+  Spacer,
+} from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
 import { OutputSegment, useContextStore } from '../store/useContextStore';
 import { CheckIcon, SmallCloseIcon } from '@chakra-ui/icons';
@@ -16,6 +25,11 @@ export function OutputBox() {
 
   function SegmentBox({ segment }: { segment: OutputSegment }) {
     const text = segment.lines.join('\n');
+
+    if (!text) {
+      return null;
+    }
+
     return (
       <Box className='OutputSegmentBox'>
         <pre dangerouslySetInnerHTML={{ __html: text }}></pre>
@@ -39,21 +53,41 @@ export function OutputBox() {
       }
     }
 
-    function YesNoAndInputBar() {
+    function YesNoAndInputBar(props: { redNo?: boolean }) {
       return (
-        <ButtonGroup>
+        <ButtonGroup w='full'>
           <Button
             size='sm'
+            px={6}
             colorScheme='green'
             leftIcon={<CheckIcon />}
             onClick={() => sendInput('y')}
           >
             Yes
           </Button>
-          <Button size='sm' colorScheme='blue' onClick={() => sendInput('n')}>
+          <Button
+            //
+            size='sm'
+            px={6}
+            colorScheme={props.redNo ? 'red' : 'blue'}
+            onClick={() => sendInput('n')}
+          >
             No
           </Button>
-          <Input size='sm' placeholder='...or enter some custom input here' />
+          {/* <Input
+            //
+            size='sm'
+            placeholder='...or enter some custom input here'
+            rounded='md'
+            variant='filled'
+          /> */}
+          <Button size='sm' px={6} colorScheme='purple' onClick={() => promptAndSendInput()}>
+            Enter text to send
+          </Button>
+          <Spacer />
+          <Button size='sm' px={6} colorScheme='blue' onClick={() => sendInput('')}>
+            ⏎ Enter
+          </Button>
         </ButtonGroup>
       );
     }
@@ -61,21 +95,19 @@ export function OutputBox() {
     if (expectedUserInteraction === 'yesno') {
       return <YesNoAndInputBar />;
     }
-    
+
     if (expectedUserInteraction === 'text') {
-      return (
-        <ButtonGroup>
-          <Button onClick={() => sendInput('y')}>Send "y"</Button>
-          <Button onClick={() => promptAndSendInput()}>Enter text to send</Button>
-          <Button onClick={() => sendInput('')}>Send "⏎"</Button>
-        </ButtonGroup>
-      );
+      return <YesNoAndInputBar />;
     }
 
     return null;
   }
 
-  return outputSegments.map((segment, index) => {
-    return <SegmentBox key={index} segment={segment} />;
-  });
+  return (
+    <>
+      {outputSegments.map((segment, index) => {
+        return <SegmentBox key={index} segment={segment} />;
+      })}
+    </>
+  );
 }

@@ -1,14 +1,19 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import './App.css';
 import { ActionBar } from './components/ActionBar';
 import { OutputBox } from './components/OutputBox';
 import { SidebarContent } from './components/SidebarContent';
 import { UserInputBar } from './components/UserInputBar';
 import useWebSocketConnection from './hooks/useWebSocketConnection';
+import { useEffect } from 'react';
 
 function App() {
   useWebSocketConnection('ws://localhost:2200');
 
+  const { colorMode, setColorMode } = useColorMode();
+  useEffect(() => {
+    setColorMode('light');
+  }, [colorMode, setColorMode]);
 
   return (
     <>
@@ -30,16 +35,23 @@ function App() {
         color='blackAlpha.700'
         fontWeight='bold'
       >
-        <GridItem p='2' bg='orange.300' area={'header'}>
+        <GridItem rounded='sm' p='2' bg='orange.300' area={'header'}>
           <ActionBar />
         </GridItem>
-        <GridItem p='2' bg='pink.300' area={'nav'}>
+        <GridItem rounded='sm' p='2' bg='pink.300' area={'nav'}>
           <SidebarContent />
         </GridItem>
-        <GridItem p='2' bg='green.300' area='main' overflow='auto'>
-          <OutputBox/>
+        <GridItem
+          rounded='sm'
+          p='2'
+          bg='green.300'
+          area='main'
+          overflow='auto'
+          className='pretty-scrollbar'
+        >
+          <OutputBox />
         </GridItem>
-        <GridItem p='2' bg='blue.300' area={'footer'}>
+        <GridItem rounded='sm' p='2' bg='blue.300' area={'footer'}>
           <UserInputBar />
         </GridItem>
       </Grid>
