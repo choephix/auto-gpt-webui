@@ -1,7 +1,7 @@
 import { Button, Divider, Heading, Text, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
 
-const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`];
+const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`, `bash spin.sh`];
 
 const apiService = new APIService();
 

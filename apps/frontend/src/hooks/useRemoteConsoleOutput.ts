@@ -13,10 +13,10 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
 
     function onMessage(event: MessageEvent) {
       console.log('WebSocket message received: ', event.data);
-      const rawOutput = String(event.data)
-        .replace(/.+Thinking\.\.\..*/gm, '')
-        .replace(/^\s*$[\n\r]{1,}/gm, '🧠 -- Thinking --\n');
-      const htmlOutput = ansiToHtml.toHtml(rawOutput);
+      let output = String(event.data);
+      // output = output.replace(/.+Thinking\.\.\..*/gm, '')
+      // output = output.replace(/^\s*$[\n\r]{1,}/gm, '🧠 -- Thinking --\n');
+      const htmlOutput = ansiToHtml.toHtml(output);
       setOutput(htmlOutput);
     }
 
