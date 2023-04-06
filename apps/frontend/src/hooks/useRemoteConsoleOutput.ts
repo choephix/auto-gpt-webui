@@ -11,9 +11,6 @@ type MessageData = {
 const SEGMENT_BEGINNING_STRINGS = ['NEXT ACTION: ', 'Welcome to Auto-GPT!'];
 
 export function useRemoteConsoleOutput(socket: WebSocket | null) {
-  const [output, setOutput] = useState<string>('');
-  const [waitingForInput, setWaitingForInput] = useState<boolean>(false);
-
   const { setOutputSegments } = useContextStore();
 
   useEffect(() => {
@@ -67,9 +64,4 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
       socket.removeEventListener('message', onMessage);
     };
   }, [socket]);
-
-  return {
-    consoleOutput: output,
-    isWaitingForInput: waitingForInput,
-  };
 }

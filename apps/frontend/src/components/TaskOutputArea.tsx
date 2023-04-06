@@ -7,12 +7,13 @@ import {
   ColorModeScript,
   theme,
   Spacer,
+  Container,
 } from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
 import { OutputSegment, useContextStore } from '../store/useContextStore';
 import { CheckIcon, SmallCloseIcon } from '@chakra-ui/icons';
 
-export function OutputBox() {
+export function TaskOutputArea() {
   const { socket, outputSegments } = useContextStore();
 
   if (!socket) {
@@ -104,10 +105,13 @@ export function OutputBox() {
   }
 
   return (
-    <>
+    <Container maxW='container.xl' display="relative">
+      {/* <div className='stripe'>
+        <div className='stripe_inner'>WARNING</div>
+      </div> */}
       {outputSegments.map((segment, index) => {
         return <SegmentBox key={index} segment={segment} />;
       })}
-    </>
+    </Container>
   );
 }

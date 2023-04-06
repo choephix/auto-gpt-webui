@@ -1,7 +1,7 @@
 import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import './App.css';
 import { ActionBar } from './components/ActionBar';
-import { OutputBox } from './components/OutputBox';
+import { TaskOutputArea } from './components/TaskOutputArea';
 import { SidebarContent } from './components/SidebarContent';
 import { UserInputBar } from './components/UserInputBar';
 import useWebSocketConnection from './hooks/useWebSocketConnection';
@@ -49,7 +49,7 @@ function App() {
           overflow='auto'
           className='pretty-scrollbar'
         >
-          <OutputBox />
+          <TaskOutputArea />
         </GridItem>
         <GridItem rounded='sm' p='2' bg='blue.300' area={'footer'}>
           <UserInputBar />
