@@ -46,7 +46,7 @@ const useWebSocketConnection = (url: string) => {
     return () => {
       isMounted = false;
     };
-  }, [socket, url]);
+  }, [url]);
 
   return socket;
 };

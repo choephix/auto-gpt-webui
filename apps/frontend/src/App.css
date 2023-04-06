@@ -1,17 +1,22 @@
-pre {
-  background-color: #282c34;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 10px;
-  font-family: monospace;
-  white-space: pre-wrap; /* Since CSS 2.1 */
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .App * {
   box-sizing: border-box;
+}
+
+.OutputSegmentBox {
+  background-color: #282c34;
+  border-radius: 5px;
+  padding: 18px 28px;
+  margin-bottom: 12px;
+}
+
+.OutputSegmentBox pre {
+  color: white;
+  font-size: 14px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
 }

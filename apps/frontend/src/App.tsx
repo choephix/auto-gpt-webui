@@ -7,7 +7,8 @@ import { UserInputBar } from './components/UserInputBar';
 import useWebSocketConnection from './hooks/useWebSocketConnection';
 
 function App() {
-  const socket = useWebSocketConnection('ws://localhost:2200');
+  useWebSocketConnection('ws://localhost:2200');
+
 
   return (
     <>
@@ -36,7 +37,7 @@ function App() {
           <SidebarContent />
         </GridItem>
         <GridItem p='2' bg='green.300' area='main' overflow='auto'>
-          <OutputBox socket={socket} />
+          <OutputBox/>
         </GridItem>
         <GridItem p='2' bg='blue.300' area={'footer'}>
           <UserInputBar />

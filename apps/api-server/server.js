@@ -48,7 +48,6 @@ const appendOutputChunkAndUpdateClients = data => {
       return false;
     }
 
-    console.log(`Deleting last line because it ended with a \\r: ${JSON.stringify([...lastSavedLine])}`);
     commandLog.pop();
     return true;
   }
@@ -62,10 +61,10 @@ const appendOutputChunkAndUpdateClients = data => {
   const [firstLine, ...restOfLines] = lines;
 
   const deletedLastLine = deleteLastLineIfCarrotMovedToBeginning();
-  if (!deletedLastLine) {
-    commandLog[commandLog.length - 1] = commandLog[commandLog.length - 1] + firstLine;
-  } else {
+  if (deletedLastLine) {
     commandLog.push(firstLine);
+  } else {
+    commandLog[commandLog.length - 1] = commandLog[commandLog.length - 1] + firstLine;
   }
 
   if (restOfLines.length > 0) {
@@ -73,6 +72,10 @@ const appendOutputChunkAndUpdateClients = data => {
       deleteLastLineIfCarrotMovedToBeginning();
       commandLog.push(line);
     }
+  }
+
+  if (data.endsWith('\n')) {
+    commandLog.push('');
   }
 
   updateClients(wss.clients, data);

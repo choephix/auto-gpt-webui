@@ -1,20 +1,81 @@
-import { Box, Text } from '@chakra-ui/react';
-import { useRemoteConsoleOutput } from '../hooks/useRemoteConsoleOutput';
+import { Box, Button, ButtonGroup, Text, Input } from '@chakra-ui/react';
+import { useApiService } from '../hooks/useApiService';
+import { OutputSegment, useContextStore } from '../store/useContextStore';
+import { CheckIcon, SmallCloseIcon } from '@chakra-ui/icons';
 
-interface OutputBoxProps {
-  socket: WebSocket | null;
-}
-
-export function OutputBox({ socket }: OutputBoxProps) {
-  const { consoleOutput, isWaitingForInput } = useRemoteConsoleOutput(socket);
+export function OutputBox() {
+  const { socket, outputSegments } = useContextStore();
 
   if (!socket) {
     return <Text fontSize='sm'>No socket connection.</Text>;
   }
 
-  if (!consoleOutput) {
+  if (!outputSegments.length) {
     return <Text fontSize='sm'>No console output yet. Run a command to get started.</Text>;
   }
 
-  return <pre dangerouslySetInnerHTML={{ __html: consoleOutput }}></pre>;
+  function SegmentBox({ segment }: { segment: OutputSegment }) {
+    const text = segment.lines.join('\n');
+    return (
+      <Box className='OutputSegmentBox'>
+        <pre dangerouslySetInnerHTML={{ __html: text }}></pre>
+        <InputBar segment={segment} />
+      </Box>
+    );
+  }
+
+  function InputBar({ segment }: { segment: OutputSegment }) {
+    const { expectedUserInteraction } = segment;
+    const apiService = useApiService();
+
+    function sendInput(input: string) {
+      apiService.sendInput(input);
+    }
+
+    function promptAndSendInput() {
+      const value = prompt(`I'm listening for input. Enter a value:`);
+      if (value !== null) {
+        return apiService.sendInput(value);
+      }
+    }
+
+    function YesNoAndInputBar() {
+      return (
+        <ButtonGroup>
+          <Button
+            size='sm'
+            colorScheme='green'
+            leftIcon={<CheckIcon />}
+            onClick={() => sendInput('y')}
+          >
+            Yes
+          </Button>
+          <Button size='sm' colorScheme='blue' onClick={() => sendInput('n')}>
+            No
+          </Button>
+          <Input size='sm' placeholder='...or enter some custom input here' />
+        </ButtonGroup>
+      );
+    }
+
+    if (expectedUserInteraction === 'yesno') {
+      return <YesNoAndInputBar />;
+    }
+    
+    if (expectedUserInteraction === 'text') {
+      return (
+        <ButtonGroup>
+          <Button onClick={() => sendInput('y')}>Send "y"</Button>
+          <Button onClick={() => promptAndSendInput()}>Enter text to send</Button>
+          <Button onClick={() => sendInput('')}>Send "⏎"</Button>
+        </ButtonGroup>
+      );
+    }
+
+    return null;
+  }
+
+  return outputSegments.map((segment, index) => {
+    return <SegmentBox key={index} segment={segment} />;
+  });
 }
