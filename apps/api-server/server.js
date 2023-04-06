@@ -25,6 +25,9 @@ wss.on('connection', ws => {
 });
 
 const updateClients = data => {
+  console.log(`data[0]: ${data[0]}`);
+  console.log(`X`);
+
   commandLog += data;
 
   wss.clients.forEach(client => {

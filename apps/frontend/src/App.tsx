@@ -1,9 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
 import viteLogo from '/favicon.png';
-import './App.css'
+import './App.css';
 import { GUI } from './components/GUI';
 import useWebSocket from './hooks/useWebSocket';
+import Test from './components/Test';
+import { OutputBox } from './components/OutputBox';
+import SimpleSidebarWrapper from './components/SimpleSidebarWrapper';
 
 function App() {
   const socket = useWebSocket('ws://localhost:2200');
@@ -12,8 +15,12 @@ function App() {
     return <div>Connecting...</div>;
   }
 
-  return <GUI socket={socket} />;
-  
+  return (
+    <SimpleSidebarWrapper>
+      <GUI socket={socket} />
+    </SimpleSidebarWrapper>
+  );
+
   // const [count, setCount] = useState(0);
   // return (
   //   <div className="App">
@@ -41,4 +48,4 @@ function App() {
   // )
 }
 
-export default App
+export default App;

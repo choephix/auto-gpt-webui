@@ -1,40 +1,18 @@
-import { Box, Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakra-ui/react';
-import AnsiToHtml from 'ansi-to-html';
-import { useEffect, useState } from 'react';
+import { Button, ButtonGroup, Container, Divider, Heading, VStack } from '@chakra-ui/react';
 import { APIService } from '../services/APIService';
-
-const ansiToHtml = new AnsiToHtml();
+import { OutputBox } from './OutputBox';
 
 const exeActions = ['ls -la', `pip install -r requirements.txt`, `python scripts/main.py`];
 
 const apiService = new APIService();
 
 interface GUIProps {
-  socket: WebSocket;
+  socket: WebSocket | null;
 }
 
 export function GUI({ socket }: GUIProps) {
-  const [output, setOutput] = useState<string>('');
-
-  useEffect(() => {
-    function onMessage(event: MessageEvent) {
-      console.log('WebSocket message received: ', event.data);
-      const rawOutput = String(event.data)
-        .replace(/.+Thinking\.\.\..*/gm, '')
-        .replace(/^\s*$[\n\r]{1,}/gm, '🧠 -- Thinking --\n');
-      const htmlOutput = ansiToHtml.toHtml(rawOutput);
-      setOutput(htmlOutput);
-    }
-
-    socket.addEventListener('message', onMessage);
-
-    return () => {
-      socket.removeEventListener('message', onMessage);
-    };
-  }, [socket]);
-
   function execc(command: string) {
-    apiService.execc(command);
+    apiService.startCommand(command);
   }
 
   function sendInput(input: string) {
@@ -74,7 +52,7 @@ export function GUI({ socket }: GUIProps) {
         <ButtonGroup>
           {exeActions.map((action, index) => (
             <Button key={index} onClick={() => execc(action)}>
-              {action}
+              exec: {action}
             </Button>
           ))}
         </ButtonGroup>
@@ -95,20 +73,7 @@ export function GUI({ socket }: GUIProps) {
         <Divider />
 
         <Container maxW='full'>
-          {output && (
-            <Box
-              flex={1}
-              w='full'
-              h='60vh'
-              overflowY='auto'
-              className='output-box'
-              bg='gray.50'
-              p={4}
-              mt={4}
-            >
-              <pre dangerouslySetInnerHTML={{ __html: output }}></pre>
-            </Box>
-          )}
+          <OutputBox socket={socket} />
         </Container>
       </VStack>
     </Container>

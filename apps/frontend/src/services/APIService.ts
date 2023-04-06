@@ -32,7 +32,7 @@ export class APIService {
     }
   }
 
-  execc(command: string) {
+  startCommand(command: string) {
     return this.fetchWrapper('execute', 'POST', { command });
   }
 
