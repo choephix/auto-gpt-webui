@@ -4,19 +4,19 @@ import { ActionBar } from './components/ActionBar';
 import { TaskOutputArea } from './components/TaskOutputArea';
 import { SidebarContent } from './components/SidebarContent';
 import { UserInputBar } from './components/UserInputBar';
-import useWebSocketConnection from './hooks/useWebSocketConnection';
-import { useEffect } from 'react';
+import { ServicesRunner } from './components/ServicesRunner';
 
 function App() {
-  useWebSocketConnection('ws://localhost:2200');
+  // const { colorMode, setColorMode } = useColorMode();
+  // useEffect(() => {
+  //   setColorMode('light');
+  // }, [colorMode, setColorMode]);
 
-  const { colorMode, setColorMode } = useColorMode();
-  useEffect(() => {
-    setColorMode('light');
-  }, [colorMode, setColorMode]);
+  console.log('App rendered.');
 
   return (
     <>
+      <ServicesRunner />
       <Grid
         templateAreas={`
           "nav header"
@@ -47,10 +47,10 @@ function App() {
           // bg='green.300'
           area='main'
           overflow='auto'
-          className='pretty-scrollbar main-area'
+          className='pretty-scrollbar main-area animatedbg'
           position='relative'
+          key='main-area'
         >
-          <div className='bg'></div>
           <TaskOutputArea />
         </GridItem>
         <GridItem rounded='sm' p='2' bg='blue.300' area={'footer'}>

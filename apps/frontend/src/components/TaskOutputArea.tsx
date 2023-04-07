@@ -95,7 +95,7 @@ export function TaskOutputArea() {
   }
 
   return (
-    <Container maxW='container.xl' display='relative'>
+    <Container maxW='container.xl' display='relative' key='TaskOutputArea'>
       {outputSegments.map((segment, index) => {
         return <SegmentBox key={index} segment={segment} />;
       })}
