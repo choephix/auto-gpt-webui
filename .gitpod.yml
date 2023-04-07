@@ -7,7 +7,7 @@ tasks:
 
 # Ports to expose on workspace startup
 ports:
-  - port: 3000
+  - port: 7070
     onOpen: open-preview
     name: Frontend
     description: Frontend Preview
