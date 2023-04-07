@@ -56,29 +56,9 @@ code {
 }
 
 /******************************************************
- *  CSS3 Aniamted Background
+ *  CSS3 Animated Background
  ******************************************************/
-.animatedbg2 {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    #7af9ab,
-    #7af9ab 6rem,
-    #a8ffc9 6rem,
-    #a8ffc9 12rem
-  );
-  background-size: 200% 200%;
-  animation: barberpole 100s linear infinite;
-}
 
-@keyframes barberpole {
-  100% {
-    background-position: 100% 100%;
-  }
-}
-
-/* Cool infinite background scrolling animation.
- * Twitter: @kootoopas
- */
 @-webkit-keyframes bg-scrolling {
   0% {
     background-position: 160px 160px;
@@ -99,17 +79,14 @@ code {
     background-position: 160px 160px;
   }
 }
+
 .animatedbg {
   background: url('data:image/webp;base64,UklGRiwEAABXRUJQVlA4WAoAAAAgAAAAnwAAnwAAVlA4IA4EAABQNQCdASqgAKAAPjEYikQiIaEQNQAgAwS0gDsAF8l+iq+5YilqOxXFfQnPu++lx+gLdstnnOylQWY7pMnC7+461A79YpitkQWWfvWYi896BsKzrLZ50E3lDeaQ43bP9uSURBRsM3CaSK8LfAjXxr4qII2HaYjoC2s4SzxbGcoyULSwDN8GQkbas5XRvwpe67gz0GRUqjqz7ExdRkVh1nhrRTcybr07yB5lwv+rs6GNJSl7dTMcTDzf9Ue7lwUyFbgzz0/gbaH0nS+G5ckJRN8+1x6TlXEP4p2Xy43TKOeOuGSlCiy3Ex1OT/a+wLi85JYLmhv2BwR6JwX1vspv1cBD9chRJtzP66Z4GA9HzWt2nNGzJXFbpJ7ZDvO9k17jrGPeGYjiy1plrdht646fTTjv8LHnJskMko0ttk0ZOJDORn5ANmNu7nhZ6UGxfuVQubnDwxq4L2MnT/PyqMyfIqvB5SrCNbxPWdWmcoajV06vS3ZW1TPxEsI3/zvVzeTjy/4d1BXEjIjo369mzmMb1G68fLHTrr7eJYDndkF4kCY7XbtY/ptCMldrukgMc/ThXz7O4AAA/v0ETW/8///G83mta3//98Cf+8Cf+8Cf7pp5usqIdnvThOOibzk4x0083H4Y9xZXQtCpvmtwWipLrPE0dXjgClbL6SGv9XGnO5UnnGqNfm38oY82DplMMuhASLiP5OCHhzip7oQ3HNA23HT2diE1XQgTDy53dK/GiRGMahKEwmxiqudBMvzXp4UnbHlYulNEBbA+/ogMYBU7AXauwn4dN9cImdYL+ynDZAk/aNflk5F8xiA7qQ2u995xeCjNwq9oteo+sd2+FeC2XMXdxJc5XZKwbkMYi2Z8NZ3e/X9wPWk7JxIgDG/6sA0GpedzcHoAAygASYARbB6IY8GN+0oS9I/3f2v9PZUbNmHY2QMo4OxhOveJpMvhBDZAXkLq8xgmHjhr3lg4jds1wR5uVT/0mKnylO0YtzOOCw2QuvwnIFC0ALC8W2OACQI67B/GFakUnRe6RztXwvedaiTfth872zKsz+ly/PmS6tfHBEgnwQBIuhJ3rj+Z8GGm3qcK22yHVQmzCvkJTEkpFLyJ1A00rGAc8hhVZz3J/ZNFX8wI6CEyKYz0aafgruf/AJXx2KpxHMje2XGTmrfrcTEVfvwgP8WEHuym7aWVlc1meA3wCotZR1taDZdV+hTLGp1jTO+v9dEPRqp56SNSKYmS9c9emZQtjkXKS/EJR8XOSro/hONrty9RF6iVpGm8Jm+3/YVOJgeRhvZpN+0NPu3eZzgdR1YsUVLzQ0CtQ064uAubk7CphGTbWeuyaHNE3gckqLRoLyqLDUJxMp2ghck5f8AGwzDsllCmkKsAAAA=')
     repeat 0 0;
   -webkit-animation: bg-scrolling 10.92s infinite;
-  /* Safari 4+ */
   -moz-animation: bg-scrolling 10.92s infinite;
-  /* Fx 5+ */
   -o-animation: bg-scrolling 10.92s infinite;
-  /* Opera 12+ */
   animation: bg-scrolling 10.92s infinite;
-  /* IE 10+ */
   -webkit-animation-timing-function: linear;
   -moz-animation-timing-function: linear;
   -o-animation-timing-function: linear;

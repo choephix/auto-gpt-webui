@@ -23,10 +23,12 @@ const useWebSocketConnection = (url: string) => {
       };
 
       socket.onclose = () => {
-        console.log('WebSocket closed');
+        console.log('WebSocket closed. Will retry in 1 second.');
+
         if (isMounted) {
           setSocket(null);
         }
+
         setTimeout(() => {
           connectWebSocket();
         }, 1000);

@@ -1,5 +1,4 @@
 import { createSimpleZustandStore } from '../utils/createSimpleZustandStore';
-import { createStoreWrappedWithProxy } from '../utils/createStoreWrappedWithProxy';
 
 export interface OutputSegment {
   lines: string[];
@@ -9,5 +8,7 @@ export interface OutputSegment {
 
 export const useContextStore = createSimpleZustandStore({
   socket: null as WebSocket | null,
+  socketConnected: false,
+
   outputSegments: [] as OutputSegment[],
 });
