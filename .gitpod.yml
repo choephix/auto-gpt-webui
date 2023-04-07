@@ -1,0 +1,17 @@
+# Commands to start on workspace startup
+tasks:
+  - name: Initialize & Start Development Server
+    before: npm run init
+    init: npm install 
+    command: npm run dev
+
+# Ports to expose on workspace startup
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: Frontend
+    description: Frontend Preview
+  - port: 2200
+    onOpen: open-preview
+    name: API Backend
+    description: Frontend Preview
