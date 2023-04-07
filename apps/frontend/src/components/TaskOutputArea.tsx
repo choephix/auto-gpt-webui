@@ -1,7 +1,8 @@
-import { CheckIcon } from '@chakra-ui/icons';
-import { Box, Button, ButtonGroup, Container, Spacer, Text } from '@chakra-ui/react';
+import { CheckIcon, CloseIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { Box, Button, ButtonGroup, Container, IconButton, Spacer, Text } from '@chakra-ui/react';
 import { useApiService } from '../hooks/useApiService';
 import { OutputSegment, useContextStore } from '../store/useContextStore';
+import { useState } from 'react';
 
 export function TaskOutputArea() {
   const { socket, outputSegments } = useContextStore();
@@ -14,24 +15,27 @@ export function TaskOutputArea() {
     return <Text fontSize='sm'>No console output yet. Run a command to get started.</Text>;
   }
 
-  function SegmentBox({ segment }: { segment: OutputSegment }) {
-    const text = segment.lines.join('\n');
+  return (
+    <Container maxW='container.xl' display='relative' key='TaskOutputArea'>
+      {outputSegments.map((segment, index) => {
+        return <SegmentBox key={index} segment={segment} />;
+      })}
+    </Container>
+  );
+}
 
-    if (!text) {
-      return null;
-    }
+function SegmentBox({ segment }: { segment: OutputSegment }) {
+  const text = segment.lines.join('\n');
 
-    return (
-      <Box className='OutputSegmentBox'>
-        <pre dangerouslySetInnerHTML={{ __html: text }}></pre>
-        <InputBar segment={segment} />
-      </Box>
-    );
+  if (!text) {
+    return null;
   }
 
   function InputBar({ segment }: { segment: OutputSegment }) {
     const { expectedUserInteraction } = segment;
     const apiService = useApiService();
+
+    const [forceShowInputBar, setForceShowInputBar] = useState(false);
 
     function sendInput(input: string) {
       apiService.sendInput(input);
@@ -84,21 +88,35 @@ export function TaskOutputArea() {
     }
 
     if (expectedUserInteraction === 'yesno') {
-      return <YesNoAndInputBar />;
+      return <YesNoAndInputBar redNo />;
     }
 
     if (expectedUserInteraction === 'text') {
       return <YesNoAndInputBar />;
     }
 
-    return null;
+    if (forceShowInputBar) {
+      return (
+        <>
+          <Button size='sm' onClick={() => setForceShowInputBar(false)} variant='link' mb='2'>
+            [Hide input options]
+          </Button>
+          <YesNoAndInputBar />
+        </>
+      );
+    }
+
+    return (
+      <Button size='sm' onClick={() => setForceShowInputBar(true)} variant='link'>
+        [Show input options]
+      </Button>
+    );
   }
 
   return (
-    <Container maxW='container.xl' display='relative' key='TaskOutputArea'>
-      {outputSegments.map((segment, index) => {
-        return <SegmentBox key={index} segment={segment} />;
-      })}
-    </Container>
+    <Box className='OutputSegmentBox'>
+      <pre dangerouslySetInnerHTML={{ __html: text }}></pre>
+      {segment.isLastSegment && <InputBar segment={segment} />}
+    </Box>
   );
 }

@@ -8,7 +8,7 @@ type MessageData = {
   fullConsoleOutput: string;
 };
 
-const SEGMENT_BEGINNING_STRINGS = ['NEXT ACTION: ', 'Welcome to Auto-GPT!'];
+const SEGMENT_BREAKERS = ['NEXT ACTION: ', 'Welcome to Auto-GPT!'];
 
 export function useRemoteConsoleOutput(socket: WebSocket | null) {
   const { setOutputSegments } = useContextStore();
@@ -29,6 +29,7 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
           segments[index] = {
             lines: [],
             expectedUserInteraction: null,
+            isLastSegment: false,
           };
         }
 
@@ -39,17 +40,19 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
       const outputLines = fullConsoleOutput.split('\n');
       let segmentIndex = 0;
       for (const line of outputLines) {
-        if (SEGMENT_BEGINNING_STRINGS.some(str => line.includes(str))) {
+        if (SEGMENT_BREAKERS.some(str => line.includes(str))) {
           segmentIndex++;
         }
 
         addLineToSegmentWithIndex(line, segmentIndex);
       }
 
+      segments[segments.length - 1].isLastSegment = true;
+
       const lastLine = outputLines[outputLines.length - 1];
       if (lastLine.includes('(y/n)')) {
         segments[segmentIndex].expectedUserInteraction = 'yesno';
-      } else if (lastLine.includes('Input:') || lastLine.endsWith(': ')) {
+      } else if (lastLine.includes('Input:') || lastLine.endsWith(': ') || lastLine.endsWith(':')) {
         segments[segmentIndex].expectedUserInteraction = 'text';
       }
 

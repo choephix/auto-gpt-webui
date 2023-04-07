@@ -4,6 +4,7 @@ import { createStoreWrappedWithProxy } from '../utils/createStoreWrappedWithProx
 export interface OutputSegment {
   lines: string[];
   expectedUserInteraction: "yesno" | "text" | null;
+  isLastSegment: boolean;
 }
 
 export const useContextStore = createSimpleZustandStore({

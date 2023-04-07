@@ -4,7 +4,7 @@ end=$((SECONDS+2))
 
 while [ $SECONDS -lt $end ]; do
   for i in "." ".." "..."; do
-    printf "\r%s" "$i"
+    printf "$i\r%s"
     sleep 0.3
   done
 done

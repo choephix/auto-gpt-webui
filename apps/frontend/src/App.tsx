@@ -34,6 +34,7 @@ function App() {
         overflow='hidden'
         color='blackAlpha.700'
         fontWeight='bold'
+        className='animatedbg'
       >
         <GridItem rounded='sm' p='2' bg='orange.300' area={'header'}>
           <ActionBar />
@@ -47,7 +48,7 @@ function App() {
           // bg='green.300'
           area='main'
           overflow='auto'
-          className='pretty-scrollbar main-area animatedbg'
+          className='pretty-scrollbar main-area'
           position='relative'
           key='main-area'
         >
