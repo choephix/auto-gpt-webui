@@ -226,6 +226,7 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
           onClose={onEditorClose}
           onSave={handleProfileSave}
           initialValues={selectedProfile}
+          isCreatingNewProfile={!aiProfiles.find(p => p.uid === selectedProfile.uid)}
         />
       )}
     </>

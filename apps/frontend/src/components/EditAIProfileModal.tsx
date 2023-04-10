@@ -21,6 +21,7 @@ interface EditAIProfileModalProps {
   onClose: () => void;
   onSave?: (profile: AIProfile) => void;
   initialValues: AIProfile;
+  isCreatingNewProfile: boolean;
 }
 
 export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
@@ -28,6 +29,7 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
   onClose,
   onSave,
   initialValues,
+  isCreatingNewProfile,
 }) => {
   const [profile, setProfile] = useState<AIProfile>(initialValues);
 
@@ -62,7 +64,7 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit AI Profile</ModalHeader>
+        <ModalHeader>{isCreatingNewProfile ? 'New' : 'Edit'} AI Profile</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack align='stretch' spacing={4}>
