@@ -186,9 +186,9 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
 
   const createNewEmptyProfile = () => ({
     uid: generateSimpleUniqueId(),
-    name: '',
-    role: '',
-    goals: [''],
+    name: 'Entrepreneur-GPT',
+    role: 'an AI designed to autonomously develop and run businesses with the sole goal of increasing your net worth.',
+    goals: ['Increase my net worth by $1,000,000'],
   });
 
   return (

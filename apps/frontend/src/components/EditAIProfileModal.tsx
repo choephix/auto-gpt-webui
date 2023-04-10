@@ -71,6 +71,7 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
               <Input
                 value={profile.name}
                 onChange={e => setProfile({ ...profile, name: e.target.value })}
+                placeholder='Entrepreneur-GPT'
               />
             </FormControl>
             <FormControl>
@@ -78,6 +79,8 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
               <Textarea
                 value={profile.role}
                 onChange={e => setProfile({ ...profile, role: e.target.value })}
+                placeholder='An AI designed to autonomously develop and run businesses with the sole goal
+  of increasing your net worth.'
               />
             </FormControl>
             <FormControl>
