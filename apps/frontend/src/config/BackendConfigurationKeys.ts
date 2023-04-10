@@ -6,9 +6,19 @@ export const BackendConfigurationKeys: Partial<Record<BackendConfigurationKey, '
   {
     OPENAI_API_KEY: 'required',
     PINECONE_API_KEY: 'required',
+    PINECONE_ENV: 'required',
+
     GOOGLE_API_KEY: 'optional',
     CUSTOM_SEARCH_ENGINE_ID: 'optional',
-    
+
+    IMAGE_PROVIDER: 'optional',
+    HUGGINGFACE_API_TOKEN: 'optional',
+
+    MEMORY_BACKEND: 'optional',
+    // REDIS_HOST: 'optional',
+    // REDIS_PORT: 'optional',
+    // REDIS_PASSWORD: 'optional',
+
     // // @ts-ignore
     // MOCK_REQUIRED: 'required',
     // // @ts-ignore

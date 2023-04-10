@@ -8,7 +8,7 @@ import {
   Spacer,
   VStack,
 } from '@chakra-ui/react';
-import { requiredBackendConfigurationKeys } from '../config/requiredBackendConfigurationKeys';
+import { requiredBackendConfigurationKeys } from '../config/BackendConfigurationKeys';
 import { useApiService } from '../hooks/useApiService';
 import { useContextStore } from '../store/useContextStore';
 import { CommandStringBar } from './CommandStringBar';

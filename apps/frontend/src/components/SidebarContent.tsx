@@ -15,7 +15,7 @@ import {
   Switch,
   VStack,
 } from '@chakra-ui/react';
-import { BackendConfigurationKeys } from '../config/requiredBackendConfigurationKeys';
+import { BackendConfigurationKeys } from '../config/BackendConfigurationKeys';
 import { useApiService } from '../hooks/useApiService';
 import { useAutoGPTStarter } from '../hooks/useAutoGPTStarter';
 import { useContextStore } from '../store/useContextStore';
@@ -26,9 +26,6 @@ export function SidebarContent() {
   return (
     <VStack align='start' spacing={6} padding={3}>
       <SettingToggles />
-
-      {/* <Divider />
-      <ListOfAIProfiles /> */}
 
       <Divider />
       <EnvVars />
@@ -135,12 +132,6 @@ function EnvVars() {
       );
     }
 
-    const title = (
-      <AlertTitle>
-        <code>{key}</code> {getTitleSuffix()}
-      </AlertTitle>
-    );
-
     return (
       <Alert
         key={key}
@@ -150,7 +141,9 @@ function EnvVars() {
         pointerEvents='all'
       >
         <AlertIcon />
-        {title}
+        <AlertTitle>
+          <code>{key}</code> {getTitleSuffix()}
+        </AlertTitle>
         <Spacer />
         <IconButton
           icon={<EditIcon />}
