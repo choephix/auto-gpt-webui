@@ -138,12 +138,12 @@ button {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent,
-    transparent 1rem,
-    #367a08 1rem,
-    #367a08 2rem
+    transparent 20px,
+    #367a08 20px,
+    #367a08 40px
   );
   background-size: 200% 200%;
-  animation: barberpole 16s linear infinite;
+  animation: barberpole 3s linear infinite;
 }
 
 .CommandStip.active.continuous {
@@ -151,14 +151,14 @@ button {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent,
-    transparent 1rem,
-    Crimson 1rem,
-    Crimson 2rem
+    transparent 20px,
+    Crimson 20px,
+    Crimson 40px
   );
 }
 @keyframes barberpole {
   100% {
-    background-position: 100% 100%;
+    background-position: -56.568px 0;
   }
 }
 
