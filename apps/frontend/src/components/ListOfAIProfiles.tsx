@@ -25,9 +25,9 @@ import { useState } from 'react';
 import { AIProfile } from '../entities/AIProfile';
 import { useSettingsStore } from '../store/useSettingsStore';
 import { EditAIProfileModal } from './EditAIProfileModal';
-import { generateSimpleUniqueId } from '../utils/generateSimpleUniqueId';
 import { getPseudoRandomColorFromString } from '../utils/getPseudoRandomColorFromString';
 import { useAutoGPTStarter } from '../hooks/useAutoGPTStarter';
+import { getRandomProfileDataFiller } from '../utils/getRandomProfileDataFiller';
 
 interface AIProfileCardProps {
   profile: AIProfile;
@@ -184,13 +184,6 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
     setAiProfiles(newProfiles);
   };
 
-  const createNewEmptyProfile = () => ({
-    uid: generateSimpleUniqueId(),
-    name: 'Entrepreneur-GPT',
-    role: 'an AI designed to autonomously develop and run businesses with the sole goal of increasing your net worth.',
-    goals: ['Increase my net worth by $1,000,000'],
-  });
-
   return (
     <>
       <Grid templateColumns='repeat(auto-fill, minmax(350px, 1fr))' gap={4} mb={4}>
@@ -198,7 +191,8 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
           <GridItem key='+'>
             <AddAIProfileCard
               onClick={() => {
-                setSelectedProfile(createNewEmptyProfile());
+                const initialValues = getRandomProfileDataFiller();
+                setSelectedProfile(initialValues);
                 onEditorOpen();
               }}
             />
