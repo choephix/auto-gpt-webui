@@ -213,6 +213,8 @@ app.post('/input', (req, res) => {
     return res.status(400).json({ error: 'No command is currently running.' });
   }
 
+  console.log(`Sending input to active process: ${input}`);
+
   state.activeProcess.stdin.write(input + '\n');
   res.status(200).json({ message: 'Input sent to the active command.' });
 });
