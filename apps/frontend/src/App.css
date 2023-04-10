@@ -48,6 +48,8 @@ body {
   margin: 12px 0;
 
   text-align: start;
+
+  overflow: hidden;
 }
 
 .OutputSegmentBox pre {

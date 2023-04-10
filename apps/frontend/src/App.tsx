@@ -22,6 +22,7 @@ import { ServicesRunner } from './components/TheHiddenServiceRunner';
 import { useContextStore } from './store/useContextStore';
 
 import './App.css';
+import './App.animations.css';
 
 function App() {
   const { socket } = useContextStore();
