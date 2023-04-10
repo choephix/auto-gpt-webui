@@ -4,7 +4,6 @@ import {
   CheckIcon,
   DeleteIcon,
   EditIcon,
-  StarIcon,
 } from '@chakra-ui/icons';
 import {
   Box,
@@ -21,13 +20,14 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useState } from 'react';
 import { AIProfile } from '../entities/AIProfile';
-import { useSettingsStore } from '../store/useSettingsStore';
-import { EditAIProfileModal } from './EditAIProfileModal';
-import { getPseudoRandomColorFromString } from '../utils/getPseudoRandomColorFromString';
 import { useAutoGPTStarter } from '../hooks/useAutoGPTStarter';
+import { useSettingsStore } from '../store/useSettingsStore';
+import { getPseudoRandomColorFromString } from '../utils/getPseudoRandomColorFromString';
 import { getRandomProfileDataFiller } from '../utils/getRandomProfileDataFiller';
+import { EditAIProfileModal } from './EditAIProfileModal';
 
 interface AIProfileCardProps {
   profile: AIProfile;
@@ -167,6 +167,10 @@ export function ListOfAIProfiles({
     onClose: onEditorClose,
   } = useDisclosure();
 
+  const [parent] = useAutoAnimate({
+    duration: 200,
+  });
+
   const [selectedProfile, setSelectedProfile] = useState<AIProfile | null>(
     null,
   );
@@ -213,6 +217,7 @@ export function ListOfAIProfiles({
         templateColumns='repeat(auto-fill, minmax(350px, 1fr))'
         gap={4}
         mb={4}
+        ref={parent}
       >
         {showAddButton && (
           <GridItem key='+'>

@@ -2,16 +2,21 @@ import { Container, Spacer, Spinner, Text } from '@chakra-ui/react';
 import { useContextStore } from '../store/useContextStore';
 import { OutputSegmentsList } from './OutputSegmentsList';
 import { StartNewProcessMenu } from './StartNewProcessMenu';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export function TheAreaInTheMiddle() {
+  const [parent] = useAutoAnimate();
   return (
-    <>
-      <Container maxW='container.xl' display='relative' key='TaskOutputArea'>
-        <Spacer h='5dvh' />
-        <TheContent />
-        <Spacer h='25dvh' />
-      </Container>
-    </>
+    <Container
+      maxW='container.xl'
+      display='relative'
+      key='TaskOutputArea'
+      ref={parent}
+    >
+      <Spacer h='5dvh' />
+      <TheContent />
+      <Spacer h='25dvh' />
+    </Container>
   );
 }
 
