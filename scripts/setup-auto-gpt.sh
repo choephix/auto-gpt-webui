@@ -1,4 +1,4 @@
 #!/bin/bash
 git clone https://github.com/Torantulino/Auto-GPT.git auto-gpt
-git -C auto-gpt checkout 97f853a79d3ed3851ffc2d556d5e31720284fb24
+git -C auto-gpt checkout 4d42e14d3d3db3c64f1df0a425f5c3460bc82a56
 pip install -r auto-gpt/requirements.txt
