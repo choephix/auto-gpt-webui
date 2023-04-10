@@ -14,6 +14,7 @@ import {
   Spacer,
   Switch,
   VStack,
+  useColorMode,
 } from '@chakra-ui/react';
 import { BackendConfigurationKeys } from '../config/BackendConfigurationKeys';
 import { useApiService } from '../hooks/useApiService';
@@ -22,7 +23,7 @@ import { useContextStore } from '../store/useContextStore';
 import { useSettingsStore } from '../store/useSettingsStore';
 import { EditIcon } from '@chakra-ui/icons';
 
-export function SidebarContent() {
+export function SettingsDrawerContent() {
   return (
     <VStack align='start' spacing={6} padding={3}>
       <SettingToggles />
@@ -47,14 +48,19 @@ function SettingToggles() {
   } = useSettingsStore();
   const { backendState } = useContextStore();
 
+  const { colorMode, toggleColorMode } = useColorMode();
+  const isDarkMode = colorMode === 'dark';
+
   function SettingControl_Toggle({
     label,
     value,
     setValue,
+    disableOnActiveProcess,
   }: {
     label: string;
     value: boolean;
     setValue: (value: boolean) => void;
+    disableOnActiveProcess?: boolean;
   }) {
     return (
       <FormControl
@@ -68,7 +74,9 @@ function SettingToggles() {
         <Switch
           id={label}
           isChecked={value}
-          isDisabled={backendState?.activeProcessRunning}
+          isDisabled={
+            disableOnActiveProcess && backendState?.activeProcessRunning
+          }
           onChange={() => setValue(!value)}
         />
       </FormControl>
@@ -77,6 +85,14 @@ function SettingToggles() {
 
   return (
     <>
+      <Heading size='md'>Appearance</Heading>
+
+      <SettingControl_Toggle
+        label={`${isDarkMode ? '🌜' : '🌞'} Dark mode`}
+        value={isDarkMode}
+        setValue={toggleColorMode}
+      />
+
       <Heading size='md'>Backend script settings</Heading>
 
       <SettingControl_Toggle

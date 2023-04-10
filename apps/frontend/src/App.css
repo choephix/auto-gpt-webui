@@ -1,55 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,400;0,700;1,400&family=Overpass+Mono:wght@400;700&display=swap');
 
-.App * {
-  box-sizing: border-box;
+:root {
+  --app-background-color: #83ebc8;
+  --app-fade-color: #97ebcf;
+  --segment-background-color: #ffffff;
+  --insignificant-color: #ffff;
+
+  --text-color: #000000;
+  --output-segment-bg-color: #080c14c0;
+  --output-segment-border-color: #999e;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-}
-.withFadeInAnimation {
-  animation-name: fade-in;
-  animation-duration: 0.47s;
+.dark-mode {
+  --app-background-color: #164636;
+  --app-fade-color: #0a2b20;
+  --segment-background-color: #080c14c0;
+  --insignificant-color: #455;
+
+  --text-color: #ffffff;
+  --output-segment-bg-color: #080c14c0;
+  --output-segment-border-color: #fffe;
 }
 
-@keyframes pop-in {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-}
-.withPopInAnimation {
-  animation-name: pop-in;
-  animation-duration: 0.47s;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-}
-.withSlideRightAnimation {
-  animation-name: slide-right;
-  animation-duration: 0.47s;
-}
-
-@keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-}
-.withSlideDownAnimation {
-  animation-name: slide-down;
-  animation-duration: 0.47s;
+.AppBackground {
+  background-color: var(--app-background-color);
+  box-shadow: inset 0 0 256px 0 #0008, inset 0 0 32px 0 #0088;
+  transition: background-color 0.17s ease-out !important;
 }
 
 .OutputSegmentBox {
-  background-color: #080c14c0;
-  background-color: #ffffff;
+  background-color: var(--segment-background-color);
+  transition: background-color 0.17s ease-out !important;
 
   border: 2px solid #fffe;
   border: 1px solid #999e;
@@ -79,9 +69,44 @@
   border: 1px solid #999e;
   overflow: hidden;
 }
+
 .OutputCommandHeadingBox > * {
   animation-name: slide-right;
   animation-duration: 0.47s;
+}
+
+.ScrollToBottomButton {
+  background-color: var(--insignificant-color) !important;
+}
+
+/* Add this to your CSS file */
+.TheFooter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding-left: 4px;
+  padding-right: 4px;
+  pointer-events: none;
+  background-color: var(--app-fade-color);
+}
+
+.TheFooter:before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: 100% 100px;
+  background: linear-gradient(to bottom, #fff0 0%, var(--app-fade-color) 100%);
 }
 
 .FancyBox {
@@ -98,7 +123,7 @@
 }
 
 .withShadow {
-  box-shadow: 0 6px 16px 0 #0005;
+  box-shadow: 0 6px 16px 0 #0045;
 }
 
 .withSmallShadow {
@@ -152,6 +177,7 @@ button {
     Crimson 40px
   );
 }
+
 @keyframes barberpole {
   100% {
     background-position: -56.568px 0;
@@ -174,9 +200,4 @@ button {
 .pretty-scrollbar::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #3336;
-}
-
-.animatedbg {
-  background-color: #83ebc8;
-  box-shadow: inset 0 0 256px 0 #0008, inset 0 0 32px 0 #0088;
 }

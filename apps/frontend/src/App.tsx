@@ -1,37 +1,39 @@
-import { TheAreaAtTheBottom } from './components/TheAreaAtTheBottom';
-import { TheAreaAtTheTop } from './components/TheAreaAtTheTop';
-import { TheAreaInTheMiddle } from './components/TheAreaInTheMiddle';
-import { ServicesRunner } from './components/TheHiddenServiceRunner';
-
 import { useEffect, useRef, useState } from 'react';
-import './App.css';
-import { useContextStore } from './store/useContextStore';
 
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Center,
   Flex,
-  IconButton,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
-  Spacer,
   Spinner,
   Text,
-  useColorModeValue,
+  useColorMode,
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+
+import { TheAreaAtTheBottom } from './components/TheAreaAtTheBottom';
+import { TheAreaAtTheTop } from './components/TheAreaAtTheTop';
+import { TheAreaInTheMiddle } from './components/TheAreaInTheMiddle';
+import { ServicesRunner } from './components/TheHiddenServiceRunner';
+import { useContextStore } from './store/useContextStore';
+
+import './App.css';
 
 function App() {
   const { socket } = useContextStore();
 
+  const { colorMode } = useColorMode();
+
   return (
-    <Box className='app-root animatedbg' overflow='hidden' h='100dvh'>
+    <Box
+      className={`App AppBackground ${colorMode}-mode`}
+      overflow='hidden'
+      h='100dvh'
+    >
       <ServicesRunner />
       <Modal isOpen={!socket} isCentered onClose={() => void null}>
         <ModalOverlay />
@@ -83,30 +85,18 @@ function TheFooter() {
       left={0}
       right={0}
       height='64px'
+      px='4'
+      zIndex={10}
       justifyContent='center'
       alignItems='center'
-      backgroundColor={useColorModeValue('#97ebcf', '#0007')}
-      zIndex={10}
-      px='4'
-      className='TheFooter'
       pointerEvents='none'
-      _before={{
-        content: '""',
-        position: 'absolute',
-        top: '-100px',
-        left: 0,
-        right: 0,
-        height: '100px',
-        background: `linear-gradient(to bottom, #fff0 0%, #97ebcf 100%)`,
-        backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'bottom',
-        backgroundSize: '100% 100px',
-      }}
+      className='TheFooter'
     >
       <TheAreaAtTheBottom />
     </Flex>
   );
 }
+
 function TheMiddle() {
   const consoleLogContainerRef = useRef<HTMLDivElement>(null);
   const { outputSegments } = useContextStore();
@@ -187,7 +177,7 @@ function TheMiddle() {
             aria-label='Scroll to bottom'
             leftIcon={<ChevronDownIcon />}
             rightIcon={<ChevronDownIcon />}
-            className='withPopInAnimation withShadow'
+            className='ScrollToBottomButton withPopInAnimation withShadow'
             pointerEvents='all'
             rounded='full'
             size='lg'
