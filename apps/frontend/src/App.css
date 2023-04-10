@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,400;0,700;1,400&family=Overpass+Mono:wght@400;700&display=swap');
+
+.App * {
+  box-sizing: border-box;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.withFadeInAnimation {
+  animation-name: fade-in;
+  animation-duration: 0.47s;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+.withPopInAnimation {
+  animation-name: pop-in;
+  animation-duration: 0.47s;
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+.withSlideRightAnimation {
+  animation-name: slide-right;
+  animation-duration: 0.47s;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+.withSlideDownAnimation {
+  animation-name: slide-down;
+  animation-duration: 0.47s;
+}
+
+.OutputSegmentBox {
+  /* font-family: 'Azeret Mono', monospace; */
+
+  background-color: #080c14c0;
+  background-color: #ffffff;
+
+  border: 2px solid #fffe;
+  border: 1px solid #999e;
+  border-radius: 1rem;
+  padding: 20px 28px;
+  margin: 12px 0;
+
+  text-align: start;
+
+  /* box-shadow: 0 8px 20px 0 #0005, inset 0 0 256px 0 #0055 !important; */
+}
+
+.OutputSegmentBox pre {
+  /* font-family: 'Azeret Mono', monospace !important; */
+  font-family: 'Overpass Mono', monospace !important;
+
+  /* color: white; */
+  font-size: 14px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+
+  filter: brightness(1.2);
+  font-weight: bold;
+}
+
+.OutputCommandHeadingBox {
+  background: #ffd000;
+  border: 1px solid #999e;
+  overflow: hidden;
+}
+.OutputCommandHeadingBox > * {
+  animation-name: slide-right;
+  animation-duration: 0.47s;
+}
+
+.FancyBox {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 6px 16px 0 #0005;
+  animation-name: pop-in;
+  animation-duration: 0.47s;
+  animation-timing-function: ease-out;
+}
+
+.glass {
+  backdrop-filter: blur(8px);
+}
+
+.withShadow {
+  box-shadow: 0 6px 16px 0 #0005;
+}
+
+.withSmallShadow {
+  box-shadow: 0 3px 8px 0 #0002;
+}
+
+.fancyFont {
+  font-family: 'pragmatapro-fraktur', serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+button {
+  pointer-events: all;
+}
+
+.CommandStip.active
+
+/******************************************************
+  *  CSS3 Pretty Scrollbar
+  ******************************************************/
+
+.pretty-scrollbar::-webkit-scrollbar-track {
+  background-color: #0001;
+}
+
+.pretty-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background-color: #0000;
+}
+
+.pretty-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  background-color: #3336;
+}
+
+/******************************************************
+ *  CSS3 Aniamted Background
+ ******************************************************/
+
+@-webkit-keyframes bg-scrolling {
+  0% {
+    background-position: 96px 96px;
+  }
+}
+@-moz-keyframes bg-scrolling {
+  0% {
+    background-position: 96px 96px;
+  }
+}
+@-o-keyframes bg-scrolling {
+  0% {
+    background-position: 96px 96px;
+  }
+}
+@keyframes bg-scrolling {
+  0% {
+    background-position: 96px 96px;
+  }
+}
+.animatedbg {
+  background-color: #83ebc8;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgBAMAAAAQtmoLAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAC1QTFRFAAAAZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZZOKZQa38cQAAAA90Uk5TAAkNDAIGAAcLCgMEAQgFRk9fPwAABdBJREFUeJx9mN9rXEUUx0/gdgubazBrKYLxYWcJSZANuGlQUggrDXVTFSRCnny4fajFhELoQ/ShviwVJM1TKGKgD9EVCX0KLUhVkBuwphEXtA+CmMBSIX9H5/yYmXN/NOehzcydz/3OnHPmzNwFgCFjTKMNYlHLNscT8Fa5acxkG5SdsSPMbdfqYGtdP/80D1SW7JDJHW6sdm1jlgVWP6b/hvIAXFcST3B+LFDpTSTlAM7STHHfd/bPt1hgpctTOywAcA0l7nlgWQSMaVo0firAT9vb20dBovGjA+pewJg1gBuGgSq6T56hxFzigCb3PUTZAQmYeiptMwYpS4hAAKoSjz4Ouwsw3CKgDmPsqDtJDtg1tJr4pszokWGDKZJgIQVE+HAcWGDTC1jAjGUc5oBLLAC4goZ9W894oJ6WAFV8Np1QnnmB+biGgDlfAsgKoIYrcAJ7GEML1L9fQEsVsEovDC6i9kUbxBoCZoZsLwAYZNNY5hhgzmAMGjhgnwC2QQCqkrIHkpUUk3l8HG+VAmexfQIVEkiVgJWArRcANsgEbGoBK2FnVQ5gyh7wChDA1LnCSK0c2AHK7LuSh9Zl8Tc8qw9G2XaKAPR55wy3Gie4kTagaFkAbnHvQ4xB1zR2soNj1Ds+/k8BYsMD2qnmQhZY2pM/RuwM2znpGGPDVcHZiHmjZI7ODnm/Kat8hMGyJm+pXNZPI4xXM+XGu8dof7fIeRDLQle+1PqLSiDywaY86MsG2ZVyw2MwWm7ndPx4c4cCSS+y4W1+5u1zfHpUEMAE68ubeiZvTmA3dM1JpmAR7BYAJxCeYCBjN9mCQskKLmL7HXFHtZUDXAywX4ojuTHeKpeo85gY1OyyIc1JiMATBLIZUkGJKdv13i/KfuYVRC0E/gEoSHwNpdbBqpEVEEdJyc2ZLSdQEAiOKhOwgEtBgMeUBakkzvt/itEEoi8wQbsIrEPUDlMxpi2rePsrMcrBUO7tudfhzd03DohDehk6JTSwbldCp7qrNyi3rwHzYQZIcCUbahACUU0D4wpocnrb8kOV2gHsKG+DABxJ9q2FWRBQWIUATSkfdRaYxKPFevF366gZsRZLVOjQWbgsp58ISD5U31Rh5vNaBU/Smw6zhLt6mTD3nKM4WJTet1iAhiU43RB928Q5+xLXofROQ75VEjpv1A755JGaU9QFeupOSwIQRomKAOggByxyese6TOkqemZ09PUUnnnApTcJ3PProl1NDhiie8MDD1B6T6TwVAn8qvdDDsDjGKyLaNbiyeGZgSqkOQCTAnB5NX9HtF6fl1J9VACoqIK91SEgt1CM616oTVmAso6GBaDHQSJHnc8DS8bVsyyAN0ORKAJrOWBYbgkk8VcRkKIaAL6HLLPEywJ8Ozr6mgDTCoiv3L+fwohcrQ4V4MwDWE1v02zsDP83dBJFpwF4u/cArWLtVIC+HzxAqzgduM6p54CRHLCTB9wHigOqWYC3iQau4aQ34IVAvZ0Dnhme6KEpAmeNlhAA9787oPMAH19pFrAlbFIEqJpoAK5i72bOS/u4Aq4biQdie8eyeMVdvjUQ/9uWbUmHV9XnJFpfrcJH+jd3Y0iKgL9+a0BWLtt6RAGJPDmXB1RlkdTg7nNaAm/W00UBST5eAH4E77uihSk0rQSkAEt6U3eN/Cd3fLq6TxdXIBtIuvG47HPP9eAvXVpli3oHcYhsD3/h/kBPXFGBUATQaAhKXMUe9Q2tBaTM8GXrhoypbA2E5ni85AqjCOBpE806CdxAKwJLUg1lV2DQRR36l6ZxIUyvHQAlgCuwdR1/eOBhuFCdUgS0g4twBXiXPXESeK94oAQCQEfyLAvwOAoWDlw06pcMD9D34YnzFQWDJOYoF9yuUAAG3H7hsgDfBNlRbYyVFwgAhvQEwqcu2mNZRfRquwhYifmsgH2JVC1YgBIgfmXZCfhfZw6co8oA+APk558J/5RjkeaBzdC8lBEIP4SIPQdXRH7pMzij+QAAAABJRU5ErkJggg==');
+  background-repeat: repeat;
+  background-position: 0 0;
+  animation: bg-scrolling 16s infinite;
+  animation-timing-function: linear;
+}

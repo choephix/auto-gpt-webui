@@ -1,0 +1,25 @@
+{
+  "name": "auto-gpt-webui",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "setup-auto-gpt": "bash scripts/setup-auto-gpt.sh",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\"",
+    "rimraf": "npx rimraf --glob **/node_modules"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "npm@9.5.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "install": "^0.13.0",
+    "js-yaml": "^4.1.0",
+    "nodemon": "^2.0.22",
+    "npm": "^9.6.4",
+    "tree-kill": "^1.2.2",
+    "ws": "^8.13.0"
+  }
+}
