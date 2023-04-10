@@ -22,6 +22,10 @@ export function OutputSegmentsList() {
   return (
     <>
       {outputSegments.map((segment, index) => {
+        if (segment.lines.length === 0) {
+          return null;
+        }
+
         const text = segment.lines.join('\n').trim();
         if (text.startsWith(`[[COMMAND]]`)) {
           const commandString = text.replace(`[[COMMAND]]`, '').trim();
@@ -31,14 +35,7 @@ export function OutputSegmentsList() {
         }
       })}
       {shouldShowProgress && (
-        <Progress
-          size='xs'
-          isIndeterminate
-          rounded='full'
-          colorScheme='yellow'
-          mt={6}
-          mx={6}
-        />
+        <Progress size='xs' isIndeterminate rounded='full' colorScheme='yellow' mt={6} mx={6} />
       )}
     </>
   );

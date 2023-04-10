@@ -42,13 +42,13 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
 
         for (const line of outputLines) {
           const isSegmentBreaker = SEGMENT_BREAKERS.some(str => line.includes(str));
-          if (isSegmentBreaker) {
+          if (isSegmentBreaker || line.includes('[[COMMAND]]')) {
             segmentIndex++;
           }
 
           addLineToSegmentWithIndex(line, segmentIndex);
 
-          if (line.startsWith('[[COMMAND]]')) {
+          if (line.includes('[[COMMAND]]')) {
             segmentIndex++;
           }
         }
