@@ -121,6 +121,7 @@ function TheMiddle() {
     }
 
     const maxScrollTop = container.scrollHeight - container.clientHeight;
+    container.scrollTo({ top: maxScrollTop, behavior: 'smooth' });
 
     setShowScrollButton(false);
   }
