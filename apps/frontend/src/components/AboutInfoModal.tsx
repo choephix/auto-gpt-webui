@@ -24,6 +24,7 @@ export function AboutInfoModal() {
         colorScheme='blue'
         variant='ghost'
         rounded='full'
+        size='lg'
         icon={<InfoOutlineIcon />}
         onClick={onOpen}
       />

@@ -25,6 +25,7 @@ export function SettingsDrawer() {
         colorScheme='gray'
         variant='ghost'
         rounded='full'
+        size='lg'
         icon={<HamburgerIcon />}
         onClick={onOpen}
       />
