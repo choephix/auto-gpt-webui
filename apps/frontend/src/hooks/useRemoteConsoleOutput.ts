@@ -13,7 +13,8 @@ const SEGMENT_BREAKERS = [
 ];
 
 export function useRemoteConsoleOutput(socket: WebSocket | null) {
-  const { setOutputSegments, setBackendConfiguration, setBackendState } = useContextStore();
+  const { setOutputSegments, setBackendConfiguration, setBackendState } =
+    useContextStore();
 
   useEffect(() => {
     if (!socket) {
@@ -41,7 +42,9 @@ export function useRemoteConsoleOutput(socket: WebSocket | null) {
         let segmentIndex = 0;
 
         for (const line of outputLines) {
-          const isSegmentBreaker = SEGMENT_BREAKERS.some(str => line.includes(str));
+          const isSegmentBreaker = SEGMENT_BREAKERS.some((str) =>
+            line.includes(str),
+          );
           if (isSegmentBreaker || line.includes('[[COMMAND]]')) {
             segmentIndex++;
           }

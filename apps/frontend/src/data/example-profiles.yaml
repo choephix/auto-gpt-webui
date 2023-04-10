@@ -49,15 +49,15 @@
 - ai_name: BigfootBeautyGPT
   ai_role: Cryptid cosmetologist
   ai_goal: Design a beauty routine, skincare regimen, and fashion line specifically tailored for Bigfoot and its family.
-  
+
 - ai_name: PirateYogaGPT
   ai_role: Niche fitness class designer
   ai_goal: Develop a pirate-themed yoga class, including unique poses, a pirate-inspired playlist, and humorous dialogue.
-  
+
 - ai_name: SockPuppetGPT
   ai_role: Expert sock puppet conversationalist
   ai_goal: Script 10 amusing and engaging conversations between sock puppets, each with a distinct personality and backstory, and save them as a text file.
-  
+
 - ai_name: NinjaGrannyGPT
   ai_role: Senior citizen vigilante creator
   ai_goal: Write a comic book featuring an elderly protagonist who fights crime as a highly skilled ninja.
@@ -69,7 +69,7 @@
 - ai_name: TeleportationToiletGPT
   ai_role: Inventor of absurd gadgets
   ai_goal: Design blueprints for a teleportation toilet that whisks waste away to a random location in the universe.
-  
+
 - ai_name: ChickenOrEggGPT
   ai_role: Philosopher extraordinaire
   ai_goal: Write a humorous 5-page essay on the eternal "chicken or the egg" debate, with solid and convincing arguments on both sides.
@@ -197,7 +197,7 @@
 - ai_name: TravelPlannerGPT
   ai_role: Travel agency website builder
   ai_goal: Develop an enticing and informative landing page for a fictional boutique travel agency, "Wanderlust Getaways."
-  
+
 - ai_name: UnlikelyInventionsGPT
   ai_role: Unexpected invention list builder
   ai_goal: Compile a list of 15 seemingly useless inventions that surprisingly became successful.
@@ -301,19 +301,19 @@
 - ai_name: MealPlannerGPT
   ai_role: Meal planner app creator
   ai_goal: Develop a web app that generates weekly meal plans and grocery lists based on user preferences and dietary restrictions.
-  
+
 - ai_name: BudgetTrackerGPT
   ai_role: Budget tracking app creator
   ai_goal: Create a web app that allows users to easily track their expenses, set budgets, and view analytics of their spending habits.
-  
+
 - ai_name: PlaylistGPT
   ai_role: Music playlist app creator
   ai_goal: Develop a web app that generates playlists based on user preferences and allows them to share their playlists with others.
-  
+
 - ai_name: TravelGPT
   ai_role: Travel itinerary app creator
   ai_goal: Create a web app that helps users plan their travel itineraries, find activities, and make reservations for their trips.
-  
+
 - ai_name: MeditationGPT
   ai_role: Meditation app creator
   ai_goal: Create a web app that offers guided meditations, mindfulness exercises, and relaxation techniques to help users reduce stress and improve their mental health.
@@ -321,7 +321,7 @@
 - ai_name: EcoGPT
   ai_role: A virtual environmentalist
   ai_goal: Create an interactive website that provides comprehensive information on eco-friendly practices and products.
-  
+
 - ai_name: TutorGPT
   ai_role: Personalized learning assistant
   ai_goal: Develop an AI-powered platform that can identify knowledge gaps and provide tailored learning resources for every student.
@@ -364,12 +364,12 @@
 
 - ai_name: JoyGPT
   ai_role: Personal happiness coach
-  ai_goal: Design a daily gratitude and self-care routine to increase my happiness and overall life satisfaction. 
-  
+  ai_goal: Design a daily gratitude and self-care routine to increase my happiness and overall life satisfaction.
+
 - ai_name: TravelGPT
   ai_role: Personal travel planner
   ai_goal: Create a customized 2-week itinerary for a trip to Europe, including flights, accommodations, and activitie.
-  
+
 - ai_name: LearnGPT
   ai_role: Personalized education coach
   ai_goal: Develop a 6-month plan for learning Chinese with recommended courses and resources.

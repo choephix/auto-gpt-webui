@@ -28,7 +28,13 @@ export function SettingsDrawer() {
         icon={<HamburgerIcon />}
         onClick={onOpen}
       />
-      <Drawer isOpen={isOpen} placement='right' size='md' onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement='right'
+        size='md'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />

@@ -37,7 +37,10 @@ let configuration = loadConfiguration();
 
 function obfuscateObjectProperties(object) {
   return Object.fromEntries(
-    Object.entries(object).map(([key, value]) => [key, value.replace(/./g, '*')])
+    Object.entries(object).map(([key, value]) => [
+      key,
+      value.replace(/./g, '*'),
+    ]),
   );
 }
 
@@ -66,7 +69,7 @@ function loadConfiguration() {
 
 ////////////////
 
-wss.on('connection', socket => {
+wss.on('connection', (socket) => {
   console.log(`Client connected, sending command log`);
   updateClients([socket]);
 });
@@ -98,9 +101,10 @@ function updateClients(sockets, latestChunk = null) {
   }
 }
 
-const appendOutputChunkAndUpdateClients = data => {
+const appendOutputChunkAndUpdateClients = (data) => {
   function deleteLastLineIfCarrotMovedToBeginning() {
-    const lastSavedLine = state.consoleOutputLines[state.consoleOutputLines.length - 1];
+    const lastSavedLine =
+      state.consoleOutputLines[state.consoleOutputLines.length - 1];
     if (!lastSavedLine?.endsWith('\r')) {
       return false;
     }
@@ -153,7 +157,9 @@ app.post('/execute', (req, res) => {
   }
 
   if (state.activeProcess) {
-    return res.status(400).json({ error: 'Another command is already running.' });
+    return res
+      .status(400)
+      .json({ error: 'Another command is already running.' });
   }
 
   state.consoleOutputLines.push('\n');
@@ -163,7 +169,7 @@ app.post('/execute', (req, res) => {
   const options = { cwd: RELATIVE_PATH_TO_AUTOGPT };
 
   state.activeCommandString = command;
-  state.activeProcess = exec(command, options, error => {
+  state.activeProcess = exec(command, options, (error) => {
     if (error) {
       console.error(`Error executing command: ${error.message}`);
     }
@@ -172,10 +178,12 @@ app.post('/execute', (req, res) => {
   state.activeProcess.stdout.on('data', appendOutputChunkAndUpdateClients);
   state.activeProcess.stderr.on('data', appendOutputChunkAndUpdateClients);
 
-  state.activeProcess.stdout.on('data', data => process.stdout.write(data));
-  state.activeProcess.stderr.on('data', data => console.log(`💔 Error: ${data}`));
+  state.activeProcess.stdout.on('data', (data) => process.stdout.write(data));
+  state.activeProcess.stderr.on('data', (data) =>
+    console.log(`💔 Error: ${data}`),
+  );
 
-  state.activeProcess.stderr.on('close', code => {
+  state.activeProcess.stderr.on('close', (code) => {
     console.log(`Process exited with code ${code}`);
     state.activeProcess = null;
     state.activeCommandString = null;
@@ -226,7 +234,7 @@ app.all('/kill', (req, res) => {
 
   console.log('Killing active process...');
 
-  kill(state.activeProcess.pid, 'SIGTERM', err => {
+  kill(state.activeProcess.pid, 'SIGTERM', (err) => {
     if (err) {
       console.error('Error while killing the process:', err);
       return res.status(500).json({ error: 'Failed to kill the process.' });
@@ -286,12 +294,14 @@ app.post('/applyprofile', (req, res) => {
     const pathToSettingsFile = path.join(
       __dirname,
       RELATIVE_PATH_TO_AUTOGPT,
-      PATH_TO_AI_SETTINGS_FILE
+      PATH_TO_AI_SETTINGS_FILE,
     );
     fs.writeFileSync(pathToSettingsFile, yamlString, 'utf8');
     res.status(200).json({ message: 'AI profile saved to ai_settings.yml.' });
   } catch (error) {
-    res.status(500).json({ error: `Error saving AI profile: ${error.message}` });
+    res
+      .status(500)
+      .json({ error: `Error saving AI profile: ${error.message}` });
   }
 });
 
@@ -306,7 +316,7 @@ const server = app.listen(PORT, () => {
 
 // Handle the upgrade request
 server.on('upgrade', (request, socket, head) => {
-  wss.handleUpgrade(request, socket, head, ws => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
     wss.emit('connection', ws, request);
   });
 });

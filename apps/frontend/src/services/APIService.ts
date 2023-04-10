@@ -7,7 +7,8 @@ export class APIService {
     const defaultUrl = 'http://localhost:2200';
     const envUrl = process.env.BACKEND_URL || '';
     const localStorageUrl = localStorage.getItem('backendUrl') || '';
-    const urlParam = new URLSearchParams(window.location.search).get('api') || '';
+    const urlParam =
+      new URLSearchParams(window.location.search).get('api') || '';
 
     this.baseUrl = urlParam || localStorageUrl || envUrl || defaultUrl;
   }
@@ -15,7 +16,7 @@ export class APIService {
   private async fetchWrapper(
     endpoint: string,
     method: string = 'POST',
-    body?: Record<string, unknown>
+    body?: Record<string, unknown>,
   ) {
     try {
       const response = await fetch(`${this.baseUrl}/${endpoint}`, {
@@ -43,7 +44,10 @@ export class APIService {
   }
 
   startCommand(command: string, preconfiguredInputs?: string[]) {
-    return this.fetchWrapper('execute', 'POST', { command, inputs: preconfiguredInputs });
+    return this.fetchWrapper('execute', 'POST', {
+      command,
+      inputs: preconfiguredInputs,
+    });
   }
 
   clearOutput() {
@@ -62,7 +66,11 @@ export class APIService {
     return this.fetchWrapper('setenv', 'POST', { key, value });
   }
 
-  applyAiProfile(settings: { ai_name: string; ai_role: string; ai_goals: string[] }) {
+  applyAiProfile(settings: {
+    ai_name: string;
+    ai_role: string;
+    ai_goals: string[];
+  }) {
     return this.fetchWrapper('applyprofile', 'POST', { data: settings });
   }
 }

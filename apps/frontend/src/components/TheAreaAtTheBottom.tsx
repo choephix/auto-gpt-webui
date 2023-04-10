@@ -47,7 +47,13 @@ export function TheAreaAtTheBottom() {
           justifyContent='center'
           gap='2'
         >
-          <ButtonGroup size='lg' isAttached variant='solid' rounded='full' flexShrink='1'>
+          <ButtonGroup
+            size='lg'
+            isAttached
+            variant='solid'
+            rounded='full'
+            flexShrink='1'
+          >
             {backendState?.activeProcessRunning ? (
               <>
                 <Button colorScheme='teal' onClick={sendInput} rounded='full'>

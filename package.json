@@ -13,13 +13,20 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,py,json}\"",
     "rimraf": "npx rimraf --glob **/node_modules"
   },
+  "packageManager": "npm@9.5.0",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "latest",
     "turbo": "latest"
   },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "packageManager": "npm@9.5.0"
+  "prettier": {
+    "quoteProps": "consistent",
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80
+  }
 }

@@ -121,8 +121,8 @@ button {
   font-weight: bold;
   text-shadow: 0 0 3px #000, 0 0 8px #0009;
   border: 1px solid #0004;
-  transition: background-color 0.2s ease-in-out, background-image 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,
+    background-image 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .CommandStip.continuous {

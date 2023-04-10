@@ -49,14 +49,14 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
   };
 
   const setGoal = (index: number, value: string) => {
-    updateGoals(goals => {
+    updateGoals((goals) => {
       goals[index] = value;
       return goals;
     });
   };
 
   const handleSave = () => {
-    profile.goals = profile.goals.filter(goal => goal !== '');
+    profile.goals = profile.goals.filter((goal) => goal !== '');
     onSave?.(profile);
   };
 
@@ -64,7 +64,9 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{isCreatingNewProfile ? 'New' : 'Edit'} AI Profile</ModalHeader>
+        <ModalHeader>
+          {isCreatingNewProfile ? 'New' : 'Edit'} AI Profile
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack align='stretch' spacing={4}>
@@ -72,7 +74,9 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
               <FormLabel>Name your AI</FormLabel>
               <Input
                 value={profile.name}
-                onChange={e => setProfile({ ...profile, name: e.target.value })}
+                onChange={(e) =>
+                  setProfile({ ...profile, name: e.target.value })
+                }
                 placeholder='Entrepreneur-GPT'
               />
             </FormControl>
@@ -80,7 +84,9 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
               <FormLabel>Describe your AI's Role</FormLabel>
               <Textarea
                 value={profile.role}
-                onChange={e => setProfile({ ...profile, role: e.target.value })}
+                onChange={(e) =>
+                  setProfile({ ...profile, role: e.target.value })
+                }
                 placeholder='An AI designed to autonomously develop and run businesses with the sole goal
   of increasing your net worth.'
               />
@@ -92,7 +98,7 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
                   <Textarea
                     key={index}
                     value={goal}
-                    onChange={e => setGoal(index, e.target.value)}
+                    onChange={(e) => setGoal(index, e.target.value)}
                     onBlur={() => updateGoals()}
                     size='sm'
                   />

@@ -8,7 +8,8 @@ export function CommandStringBar() {
   const { command: aiStarterCommand } = useAutoGPTStarter();
   const { autoContinuous } = useSettingsStore();
 
-  const commandStringToDisplay = backendState?.activeCommandString ?? aiStarterCommand;
+  const commandStringToDisplay =
+    backendState?.activeCommandString ?? aiStarterCommand;
   const comandIsRunning = !!backendState?.activeProcessRunning;
 
   return (

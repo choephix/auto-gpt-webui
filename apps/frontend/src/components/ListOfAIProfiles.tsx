@@ -49,10 +49,13 @@ function MenuCard({ children, ...rest }: any) {
       alignItems='center'
       className='FancyBox'
       transition={'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'}
-      boxShadow={'inset 0 0 127px rgba(255, 191, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.05)'}
+      boxShadow={
+        'inset 0 0 127px rgba(255, 191, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+      }
       _hover={{
         transform: 'scale(1.05)',
-        boxShadow: 'inset 0 0 127px rgba(255, 191, 0, 0.1), 0 4px 20px rgba(0, 0, 0, 0.3)',
+        boxShadow:
+          'inset 0 0 127px rgba(255, 191, 0, 0.1), 0 4px 20px rgba(0, 0, 0, 0.3)',
       }}
       userSelect='none'
       {...rest}
@@ -65,7 +68,12 @@ function MenuCard({ children, ...rest }: any) {
 function AIProfileCard({ profile, ctrl }: AIProfileCardProps) {
   return (
     <MenuCard minH='200px'>
-      <VStack align='stretch' justifyContent='space-between' spacing={2} h='full'>
+      <VStack
+        align='stretch'
+        justifyContent='space-between'
+        spacing={2}
+        h='full'
+      >
         <VStack
           align='stretch'
           justifyContent='space-between'
@@ -126,7 +134,10 @@ function AIProfileCard({ profile, ctrl }: AIProfileCardProps) {
         px='20px'
         py='14px'
       >
-        <CheckCircleIcon color={getPseudoRandomColorFromString(profile.uid)} boxSize={3} />
+        <CheckCircleIcon
+          color={getPseudoRandomColorFromString(profile.uid)}
+          boxSize={3}
+        />
       </Container>
     </MenuCard>
   );
@@ -144,20 +155,30 @@ function AddAIProfileCard({ onClick }: { onClick: () => void }) {
   );
 }
 
-export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: boolean }) {
+export function ListOfAIProfiles({
+  showAddButton = false,
+}: {
+  showAddButton?: boolean;
+}) {
   const { aiProfiles, setAiProfiles } = useSettingsStore();
-  const { isOpen: isEditorOpen, onOpen: onEditorOpen, onClose: onEditorClose } = useDisclosure();
+  const {
+    isOpen: isEditorOpen,
+    onOpen: onEditorOpen,
+    onClose: onEditorClose,
+  } = useDisclosure();
 
-  const [selectedProfile, setSelectedProfile] = useState<AIProfile | null>(null);
+  const [selectedProfile, setSelectedProfile] = useState<AIProfile | null>(
+    null,
+  );
   const { sendStartCommandWithProfile } = useAutoGPTStarter();
 
   const ensureProfileNameIsUnique = (profile: AIProfile) => {
-    const existingProfile = aiProfiles.find(p => p.name === profile.name);
+    const existingProfile = aiProfiles.find((p) => p.name === profile.name);
     if (existingProfile) {
       let i = 1;
       while (true) {
         const newName = `${profile.name} (${i})`.trim();
-        const existingProfile = aiProfiles.find(p => p.name === newName);
+        const existingProfile = aiProfiles.find((p) => p.name === newName);
         if (!existingProfile) {
           profile.name = newName;
           break;
@@ -168,9 +189,11 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
   };
 
   const handleProfileSave = (profile: AIProfile) => {
-    const isExistingProfile = aiProfiles.find(p => p.uid === profile.uid);
+    const isExistingProfile = aiProfiles.find((p) => p.uid === profile.uid);
     if (isExistingProfile) {
-      setAiProfiles(aiProfiles.map(p => (p.uid === profile.uid ? profile : p)));
+      setAiProfiles(
+        aiProfiles.map((p) => (p.uid === profile.uid ? profile : p)),
+      );
     } else {
       ensureProfileNameIsUnique(profile);
       setAiProfiles([profile, ...aiProfiles]);
@@ -186,7 +209,11 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
 
   return (
     <>
-      <Grid templateColumns='repeat(auto-fill, minmax(350px, 1fr))' gap={4} mb={4}>
+      <Grid
+        templateColumns='repeat(auto-fill, minmax(350px, 1fr))'
+        gap={4}
+        mb={4}
+      >
         {showAddButton && (
           <GridItem key='+'>
             <AddAIProfileCard
@@ -226,7 +253,9 @@ export function ListOfAIProfiles({ showAddButton = false }: { showAddButton?: bo
           onClose={onEditorClose}
           onSave={handleProfileSave}
           initialValues={selectedProfile}
-          isCreatingNewProfile={!aiProfiles.find(p => p.uid === selectedProfile.uid)}
+          isCreatingNewProfile={
+            !aiProfiles.find((p) => p.uid === selectedProfile.uid)
+          }
         />
       )}
     </>

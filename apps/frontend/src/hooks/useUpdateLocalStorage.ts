@@ -34,7 +34,7 @@ export const useUpdateLocalStorage = () => {
     if (!settingsLoaded) {
       return;
     }
-    
+
     localStorage.setItem(
       'settings',
       JSON.stringify({
@@ -42,7 +42,13 @@ export const useUpdateLocalStorage = () => {
         autoContinuous,
         autoDebugMode,
         aiProfiles,
-      })
+      }),
     );
-  }, [settingsLoaded, autoWithOnlyGPT3, autoContinuous, autoDebugMode, aiProfiles]);
+  }, [
+    settingsLoaded,
+    autoWithOnlyGPT3,
+    autoContinuous,
+    autoDebugMode,
+    aiProfiles,
+  ]);
 };

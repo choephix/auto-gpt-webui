@@ -32,7 +32,7 @@ const useWebSocketConnection = (url: string) => {
         }, 1000);
       };
 
-      socket.onerror = error => {
+      socket.onerror = (error) => {
         console.error('WebSocket error: ', error);
       };
     };

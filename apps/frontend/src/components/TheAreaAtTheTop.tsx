@@ -25,7 +25,7 @@ function BadConfigurationAlerts() {
     return null;
   }
 
-  const missingKeys = requiredBackendConfigurationKeys.filter(key => {
+  const missingKeys = requiredBackendConfigurationKeys.filter((key) => {
     return !backendConfiguration[key];
   });
 
@@ -41,7 +41,7 @@ function BadConfigurationAlerts() {
       <CommandStringBar />
 
       <Container maxW='container.xl' display='relative' key='TaskOutputArea'>
-        {missingKeys.map(key => {
+        {missingKeys.map((key) => {
           // const value = backendConfiguration[key];
           return (
             <Alert

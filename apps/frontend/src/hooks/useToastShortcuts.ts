@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react';
 
 export function useToastShortcuts() {
   const toast = useToast();
-  
+
   return {
     toastError: (e: string | Error) => {
       if (e instanceof Error) {

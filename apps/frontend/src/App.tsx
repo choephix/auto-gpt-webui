@@ -173,7 +173,13 @@ function TheMiddle() {
   return (
     <>
       {showScrollButton && (
-        <Center position='absolute' bottom='10dvh' w='full' zIndex={99} pointerEvents='none'>
+        <Center
+          position='absolute'
+          bottom='10dvh'
+          w='full'
+          zIndex={99}
+          pointerEvents='none'
+        >
           <Button
             onClick={scrollToBottom}
             aria-label='Scroll to bottom'

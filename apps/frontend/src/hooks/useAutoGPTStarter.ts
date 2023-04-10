@@ -4,7 +4,8 @@ import { useApiService } from './useApiService';
 
 export function useAutoGPTStarter() {
   const apiService = useApiService();
-  const { autoWithOnlyGPT3, autoContinuous, autoDebugMode } = useSettingsStore();
+  const { autoWithOnlyGPT3, autoContinuous, autoDebugMode } =
+    useSettingsStore();
 
   const autoGptAdditionalCommandArgs = [
     autoWithOnlyGPT3 ? '--gpt3only' : '',

@@ -57,7 +57,11 @@ function SettingToggles() {
     setValue: (value: boolean) => void;
   }) {
     return (
-      <FormControl display='flex' alignItems='center' justifyContent='space-between'>
+      <FormControl
+        display='flex'
+        alignItems='center'
+        justifyContent='space-between'
+      >
         <FormLabel htmlFor={label} mb='0' fontSize='xs' flexGrow='1'>
           <b>{label}</b>
         </FormLabel>
@@ -113,7 +117,7 @@ function EnvVars() {
     key: string,
     status: 'success' | 'error' | 'info' | 'warning',
     isRequired: boolean,
-    isSetUp: boolean
+    isSetUp: boolean,
   ) {
     function getTitleSuffix() {
       if (isSetUp)
@@ -172,7 +176,9 @@ function EnvVars() {
           return b - a;
         })
         .map(([key, need]) => {
-          const isSetUp = Boolean(backendConfiguration?.[key as BackendConfigurationKey]);
+          const isSetUp = Boolean(
+            backendConfiguration?.[key as BackendConfigurationKey],
+          );
           const isRequired = need === 'required';
 
           if (isSetUp) {
@@ -212,7 +218,10 @@ function DebuggingView() {
     }
   }
 
-  const ButtonList = (props: { actions?: [string, () => void][]; children?: React.ReactNode }) => {
+  const ButtonList = (props: {
+    actions?: [string, () => void][];
+    children?: React.ReactNode;
+  }) => {
     return (
       <VStack w='full' spacing={2}>
         {props.actions?.map(([label, func], index) => (
@@ -240,7 +249,10 @@ function DebuggingView() {
   const backendConfigurationExistance =
     backendConfiguration &&
     Object.fromEntries(
-      Object.entries(backendConfiguration).map(([key, value]) => [key, Boolean(value)])
+      Object.entries(backendConfiguration).map(([key, value]) => [
+        key,
+        Boolean(value),
+      ]),
     );
 
   return (
@@ -249,7 +261,7 @@ function DebuggingView() {
 
       <Heading size='xs'>Shell Commands</Heading>
       <ButtonList
-        actions={debuggingShellCommands.map(action => [
+        actions={debuggingShellCommands.map((action) => [
           `exec:\n${action}`,
           () => runCommand(action),
         ])}

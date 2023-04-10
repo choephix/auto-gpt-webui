@@ -1,9 +1,9 @@
 import { create, StateCreator } from 'zustand';
 import { shallow } from 'zustand/shallow';
 
-export function createStoreWrappedWithProxy<T extends Record<string | symbol, any>>(
-  initializer: StateCreator<T>
-) {
+export function createStoreWrappedWithProxy<
+  T extends Record<string | symbol, any>,
+>(initializer: StateCreator<T>) {
   const originalMethod = create<T>(initializer);
 
   /**
@@ -57,7 +57,7 @@ export function createStoreWrappedWithProxy<T extends Record<string | symbol, an
     return new Proxy({} as any as T, {
       get: (_, key: keyof T) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        return originalMethod(state => {
+        return originalMethod((state) => {
           //// HACK //// HACK //// HACK //// HACK //// HACK //// HACK //// HACK ////
           ////
           //// This is a workaround for accessing the current ref
