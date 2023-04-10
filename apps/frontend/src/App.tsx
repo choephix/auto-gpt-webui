@@ -58,6 +58,7 @@ function App() {
 function TheHeader() {
   return (
     <Flex
+      key='TheHeader'
       position='fixed'
       top={0}
       left={0}

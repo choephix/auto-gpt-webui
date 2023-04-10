@@ -119,7 +119,48 @@ button {
   pointer-events: all;
 }
 
-.CommandStip.active
+.CommandStip {
+  background-image: linear-gradient(180deg, #455555, #546464);
+  color: #fffd;
+  font-weight: bold;
+  text-shadow: 0 0 3px #000, 0 0 8px #0009;
+  border: 1px solid #0004;
+  transition: background-color 0.2s ease-in-out, background-image 0.2s ease-in-out,
+    color 0.2s ease-in-out;
+}
+
+.CommandStip.continuous {
+  background: linear-gradient(180deg, #a51225, #861221);
+}
+
+.CommandStip.active {
+  background-color: #5ba828;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 1rem,
+    #367a08 1rem,
+    #367a08 2rem
+  );
+  background-size: 200% 200%;
+  animation: barberpole 16s linear infinite;
+}
+
+.CommandStip.active.continuous {
+  background-color: #a90f2e;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 1rem,
+    Crimson 1rem,
+    Crimson 2rem
+  );
+}
+@keyframes barberpole {
+  100% {
+    background-position: 100% 100%;
+  }
+}
 
 /******************************************************
   *  CSS3 Pretty Scrollbar
