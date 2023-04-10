@@ -85,7 +85,7 @@ function TheFooter() {
       height='64px'
       justifyContent='center'
       alignItems='center'
-      backgroundColor={useColorModeValue('#fffF', '#0007')}
+      backgroundColor={useColorModeValue('#97ebcf', '#0007')}
       zIndex={10}
       px='4'
       className='TheFooter'
@@ -97,8 +97,7 @@ function TheFooter() {
         left: 0,
         right: 0,
         height: '100px',
-        backgroundImage:
-          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAgCAMAAADkO+IoAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAGBQTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////fCUcugAAACB0Uk5TAAQJDxUcIyszO0ROV2FrdoCKlJ6osbvEzNXc5Orw9vuRbrINAAAAMUlEQVR4nAXBgwHAAAAAoGbb/v/LFQKhSCyRyuQKpUqt0er0BqPJbLHa7A6ny+3x+n4o8AHxm8Ey+wAAAABJRU5ErkJggg==',
+        background: `linear-gradient(to bottom, #fff0 0%, #97ebcf 100%)`,
         backgroundRepeat: 'repeat-x',
         backgroundPosition: 'bottom',
         backgroundSize: '100% 100px',
