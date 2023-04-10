@@ -89,11 +89,12 @@ export const EditAIProfileModal: React.FC<EditAIProfileModalProps> = ({
               <FormLabel>Goals for your AI</FormLabel>
               <VStack align='stretch' spacing={2}>
                 {profile.goals.map((goal, index) => (
-                  <Input
+                  <Textarea
                     key={index}
                     value={goal}
                     onChange={e => setGoal(index, e.target.value)}
                     onBlur={() => updateGoals()}
+                    size='sm'
                   />
                 ))}
               </VStack>
