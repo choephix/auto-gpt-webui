@@ -69,15 +69,20 @@ function CommandHeadingBox({ content }: { content: string }) {
 }
 
 function SegmentBox({ segment }: { segment: OutputSegment }) {
-  const text = segment.lines.join('\n').trim();
+  const { backendState } = useContextStore();
 
+  const text = segment.lines.join('\n').trim();
   if (!text) {
     return null;
   }
 
+  const showInputBar =
+    segment.isLastSegment && backendState?.activeProcessRunning;
+
   return (
     <Box
-      className='OutputSegmentBox glass withPopInAnimation'
+      // className='OutputSegmentBox glass withPopInAnimation'
+      className='OutputSegmentBox glass'
       transition={'box-shadow 0.2s ease-in-out'}
       boxShadow={
         'inset 0 0 256px rgba(0, 191, 255, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.05)'
@@ -88,7 +93,7 @@ function SegmentBox({ segment }: { segment: OutputSegment }) {
       }}
     >
       <pre dangerouslySetInnerHTML={{ __html: text }}></pre>
-      {segment.isLastSegment && <SegmentBoxInputBar segment={segment} />}
+      {showInputBar && <SegmentBoxInputBar segment={segment} />}
     </Box>
   );
 }
