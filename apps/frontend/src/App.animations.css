@@ -1,0 +1,42 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.withFadeInAnimation {
+  animation-name: fade-in;
+  animation-duration: 0.47s;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+.withPopInAnimation {
+  animation-name: pop-in;
+  animation-duration: 0.47s;
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+.withSlideRightAnimation {
+  animation-name: slide-right;
+  animation-duration: 0.47s;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+.withSlideDownAnimation {
+  animation-name: slide-down;
+  animation-duration: 0.47s;
+}

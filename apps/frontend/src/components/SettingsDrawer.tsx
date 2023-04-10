@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
-import { SidebarContent } from './SidebarContent';
+import { SettingsDrawerContent } from './SettingsDrawerContent';
 
 export function SettingsDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,7 +45,7 @@ export function SettingsDrawer() {
           </DrawerHeader>
 
           <DrawerBody className='pretty-scrollbar'>
-            <SidebarContent />
+            <SettingsDrawerContent />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
