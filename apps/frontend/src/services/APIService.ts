@@ -1,3 +1,5 @@
+declare const process: any;
+
 export class APIService {
   private readonly baseUrl: string;
 
@@ -5,7 +7,7 @@ export class APIService {
 
   constructor() {
     const defaultUrl = 'http://localhost:2200';
-    const envUrl = process.env.BACKEND_URL || '';
+    const envUrl = process?.env?.BACKEND_URL || '';
     const localStorageUrl = localStorage.getItem('backendUrl') || '';
     const urlParam =
       new URLSearchParams(window.location.search).get('api') || '';
