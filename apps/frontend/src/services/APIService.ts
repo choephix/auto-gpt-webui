@@ -1,19 +1,7 @@
-declare const process: any;
-
 export class APIService {
-  private readonly baseUrl: string;
-
   public onError?: (error: string) => void;
 
-  constructor() {
-    const defaultUrl = 'http://localhost:2200';
-    const envUrl = process?.env?.BACKEND_URL || '';
-    const localStorageUrl = localStorage.getItem('backendUrl') || '';
-    const urlParam =
-      new URLSearchParams(window.location.search).get('api') || '';
-
-    this.baseUrl = urlParam || localStorageUrl || envUrl || defaultUrl;
-  }
+  constructor(private readonly baseUrl: string) {}
 
   private async fetchWrapper(
     endpoint: string,
